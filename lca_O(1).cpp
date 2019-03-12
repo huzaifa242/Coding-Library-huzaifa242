@@ -15,14 +15,14 @@ void lca_dfs(int x,int pr,int dep)
 	//cout<<x<<"$"<<par[x]<<" "<<lvl[x]<<"\n";
 	for(int i=0;i<adjlst[x].size();i++)
 	{
-	    //cout<<adjlst[x][i]<<"#\n";
-	    if(pr!=adjlst[x][i])
-	    {
-	    	lca_dfs(adjlst[x][i],x,dep+1);
-	    	euler.push_back(x);
-	    	depth.push_back(dep);
-	    	ptr++;
-	    }
+		//cout<<adjlst[x][i]<<"#\n";
+		if(pr!=adjlst[x][i])
+		{
+			lca_dfs(adjlst[x][i],x,dep+1);
+			euler.push_back(x);
+			depth.push_back(dep);
+			ptr++;
+		}
 	}
 	return;
 }
