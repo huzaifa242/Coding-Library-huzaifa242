@@ -6,11 +6,11 @@ int lvl[MAX],tin[MAX],tout[MAX],up[MAX][lgs],ptr;
 void lca_dfs(int x,int pr,int dep)
 {
     lvl[x]=dep;
-	tin[x]=++ptr;
-	up[x][0]=pr;
-	for (int i = 1; i <lgs; ++i)
-	up[x][i] = up[up[x][i-1]][i-1];
-	//cout<<x<<"$"<<par[x]<<" "<<lvl[x]<<"\n";
+    tin[x]=++ptr;
+    up[x][0]=pr;
+    for (int i = 1; i <lgs; ++i)
+    up[x][i] = up[up[x][i-1]][i-1];
+    //cout<<x<<"$"<<par[x]<<" "<<lvl[x]<<"\n";
     for(int i=0;i<adjlst[x].size();i++)
     {
         //cout<<adjlst[x][i]<<"#\n";
