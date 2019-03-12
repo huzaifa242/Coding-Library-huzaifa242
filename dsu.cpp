@@ -1,5 +1,5 @@
 //Disjoint Set Union
-long long int par[MAX];
+long long int par[MAX],connected;
 // DON'T FORGET TO INITIALIZE PARENT
 /*Find parent is post order. i.e. first  reaches
   representative element, then it takes the value
@@ -20,5 +20,7 @@ void union_all(long long int u, long long int v)
 {
 	find_par(u);
 	find_par(v);
+	if(par[u]!=par[v])
+	connected--;
 	par[par[v]]=par[u];
 }
