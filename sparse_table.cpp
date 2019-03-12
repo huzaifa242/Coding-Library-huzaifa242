@@ -24,10 +24,10 @@ int sprs_query(int l, int r)
 	long long sum = 0;
 	for (j=lgs;j>=0;j--) 
 	{
-    	if((1<<j)<=r-l+1) 
-    	{
-        	sum+=sprs[l][j];
-        	l+= (1<<j);
-    	}
+		if((1<<j)<=r-l+1) 
+		{
+			sum+=sprs[l][j];
+			l+= (1<<j);
+		}
 	}
 }
