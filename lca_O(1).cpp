@@ -5,7 +5,7 @@ vector<int> adjlst[MAX],euler,depth;
 int foc[MAX],lvl[MAX],par[MAX],ptr,min_sprs[MAX][lgs];
 void lca_dfs(int x,int pr,int dep)
 {
-    lvl[x]=dep;
+	lvl[x]=dep;
 	par[x]=pr;
 	if(foc[x]==-1)
 	foc[x]=ptr;
@@ -13,18 +13,18 @@ void lca_dfs(int x,int pr,int dep)
 	depth.push_back(dep);
 	ptr++;
 	//cout<<x<<"$"<<par[x]<<" "<<lvl[x]<<"\n";
-    for(int i=0;i<adjlst[x].size();i++)
-    {
-        //cout<<adjlst[x][i]<<"#\n";
-        if(pr!=adjlst[x][i])
-        {
-        	lca_dfs(adjlst[x][i],x,dep+1);
-        	euler.push_back(x);
-        	depth.push_back(dep);
-        	ptr++;
-        }
-    }
-    return;
+	for(int i=0;i<adjlst[x].size();i++)
+	{
+	    //cout<<adjlst[x][i]<<"#\n";
+	    if(pr!=adjlst[x][i])
+	    {
+	    	lca_dfs(adjlst[x][i],x,dep+1);
+	    	euler.push_back(x);
+	    	depth.push_back(dep);
+	    	ptr++;
+	    }
+	}
+	return;
 }
 void bld_sprs(int n)
 {
