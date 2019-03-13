@@ -30,6 +30,10 @@ void union_all(long long int u, long long int v)
 	find_par(u);
 	find_par(v);
 	if(par[u]!=par[v])
-	connected--;
+	{
+		connected--;
+		sz[par[u]]+=sz[par[par[v]]];
+		sz[par[par[v]]]=0;
+	}
 	par[par[v]]=par[u];
 }
