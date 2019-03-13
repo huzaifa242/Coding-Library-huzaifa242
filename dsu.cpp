@@ -5,23 +5,23 @@
   and while returning it updates corresponding children
   1->2->3->4->5     first it reaches 5 then updates par[4]=5
   then updates par[3]=par[4](which is now 5)*/
-long long int par[MAX],sz[MAX],connected;
+long long int dsu[MAX],sz[MAX],connected;
 void clr_dsu(int n)
 {
 	for(int i=0;i<MAX;i++)
 	{
-		par[i]=i;
+		dsu[i]=i;
 		sz[i]=0;
 	}
 	connected=n;
 }
 void find_par(long long int k)
 {
-	if(par[par[k]]==k)//reached representative element now update will start
+	if(dsu[dsu[k]]==k)//reached representative element now update will start
 	return;
-	find_par(par[k]);// grandparent update. Parent is not
+	find_par(dsu[k]);// grandparent update. Parent is not
 	// Condition for Grandparent updated and not parent
-	par[k]=par[par[k]];//Parent Updated
+	dsu[k]=dsu[dsu[k]];//Parent Updated
 	// Condition when parent is Updated
 }
 // For each Query peform find_par(u),find_par[v]
@@ -29,11 +29,11 @@ void union_all(long long int u, long long int v)
 {
 	find_par(u);
 	find_par(v);
-	if(par[u]!=par[v])
+	if(dsu[u]!=dsu[v])
 	{
 		connected--;
-		sz[par[u]]+=sz[par[par[v]]];
-		sz[par[par[v]]]=0;
+		sz[dsu[u]]+=sz[dsu[dsu[v]]];
+		sz[dsu[dsu[v]]]=0;
 	}
-	par[par[v]]=par[u];
+	dsu[dsu[v]]=dsu[u];
 }
