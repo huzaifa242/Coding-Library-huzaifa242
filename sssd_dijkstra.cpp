@@ -1,17 +1,21 @@
-//Usage dijkstra(source). get_path(source, any_node)
+//Usage dijkstra(source). get_path(source, any_node), ssst holds new tree
 // adjlst stores <weight,node>
-vector<pair<int,int> > adjlst[MAX];
-int par[MAX],vis[MAX],dst[MAX];
+vector<pair<long long int,int> > adjlst[MAX],ssst[MAX];
+int par[MAX],vis[MAX],n,m;
+long long int dst[MAX];
 vector<int> path;
 void dijkstra(int u)
 {
 	int i;
 	memset(par,0,sizeof(par));
 	for(i=0;i<MAX;i++)
-	dst[i]=LLONG_MAX;
+	{
+		dst[i]=LLONG_MAX;
+		ssst[i].clear();
+	}
 	memset(vis,0,sizeof(vis));
-	priority_queue<pair<int,int>, vector<pair<int,int> >, greater<pair<int,int> > > pq;
-	pq.push(make_pair(0,u));
+	priority_queue<pair<long long int,int>, vector<pair<long long int,int> >, greater<pair<long long int,int> > > pq;
+	pq.push(make_pair(0LL,u));
 	par[u]=u;
 	dst[u]=0;
 	while(!pq.empty())
@@ -31,6 +35,14 @@ void dijkstra(int u)
 					pq.push(make_pair(dst[v.y],v.y));
 				}
 			}
+		}
+	}
+	for(i=1;i<=n;i++)
+	{
+		if(par[i]!=i)
+		{
+			ssst[i].push_back({dst[i]-dst[par[i]],par[i]});
+			ssst[par[i]].push_back({dst[i]-dst[par[i]],i});
 		}
 	}
 }
