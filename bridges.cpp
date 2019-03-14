@@ -1,3 +1,5 @@
+//usage bridges(). 
+//bridgpt is list of all edges that are bridges
 vector<int> adjlst[MAX];
 vector<pair<int,int> > bridgpt;
 int n,vis[MAX],tin[MAX],low[MAX],ptr;

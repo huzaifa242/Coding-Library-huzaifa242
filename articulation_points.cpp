@@ -1,3 +1,6 @@
+//usage articulation_points(). 
+//arti[i] denotes wheather the node is AP 
+//artpt is list of all nodes that are AP
 vector<int> adjlst[MAX],artpt;
 int n,vis[MAX],tin[MAX],low[MAX],ptr;
 bool arti[MAX];
