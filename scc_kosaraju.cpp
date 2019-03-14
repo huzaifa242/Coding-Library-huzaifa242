@@ -9,7 +9,7 @@ void st_dfs(int x, int pr)
 	vis[x]=1;
 	for(int i=0;i<adjlst[x].size();i++)
 	{
-		if(adjlst[x][i]!=pr)
+		if(!vis[adjlst[x][i]])
 		st_dfs(adjlst[x][i],x);
 	}
 	scc.push(x);
@@ -29,7 +29,7 @@ void scc_dfs(int x,int pr, int lb)
 	lbl[x]=lb;
 	for(int i=0;i<iadj[x][i];i++)
 	{
-		if(x!=pr)
+		if(!vis[iadj[x][i]])
 		scc_dfs(iadj[x][i],x,lb);
 	}
 }
