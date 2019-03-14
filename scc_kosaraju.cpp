@@ -1,3 +1,6 @@
+//Usage kosaraju(). 
+//lbl[i] has label of each node
+//compo[i] has all the node that are strongly connected
 vector<int> adjlst[MAX],iadj[MAX],compo[MAX];
 int vis[MAX],lbl[MAX]n,m;
 stack<int> scc;
@@ -30,7 +33,7 @@ void scc_dfs(int x,int pr, int lb)
 		scc_dfs(iadj[x][i],x,lb);
 	}
 }
-void kosaraju()
+int kosaraju()
 {
 	int ptr=1;
 	memset(vis,0,sizeof(vis));
@@ -55,4 +58,5 @@ void kosaraju()
 			ptr++;
 		}
 	}
+	return ptr;
 }
