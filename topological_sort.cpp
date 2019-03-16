@@ -1,3 +1,5 @@
+//usage topological_sort()
+//topo vector has sorted ordef
 int idgr[MAX],n,m;
 vector<int> topo,adjlst[MAX];
 bool topological_sort()
