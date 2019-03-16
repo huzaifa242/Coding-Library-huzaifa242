@@ -1,3 +1,5 @@
+//Usage pre_lcs(a,b);
+//lcs has the required string 
 int lcs_dp[MAX][MAX];
 string lcs;
 void pre_lcs(string &a, string &b)
