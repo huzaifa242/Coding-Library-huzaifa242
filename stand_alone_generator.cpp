@@ -13,7 +13,7 @@ int main()
 	"floydwarshall.cpp",
 	"in_builtRef.cpp",
 	"lca_O(1).cpp",
-	"lca_O(log).cpp"
+	"lca_O(log).cpp",
 	"lcs.cpp",
 	"lis.cpp",
 	"math.cpp",
@@ -29,15 +29,20 @@ int main()
 	"sssd_bellman_ford.cpp",
 	"sssd_dijkstra.cpp",
 	"topological_sort.cpp"};
-	freopen("huzaifa.cpp","w+",stdout);
+	freopen("huzaifa242.cpp","w",stdout);
 	for(auto file:files)
 	{
-		freopen(file,"r",stdin);
-		cout<<file<<"\n";
-		char ch;
-		while(ch=getchar())
-		cout<<ch;
+		char *f=const_cast<char*>(file.c_str()); 
+		FILE *fl=fopen(f,"r");
+		cout<<"//"<<file<<"\n";
+		char ch=fgetc(fl);
+		while(ch!=EOF)
+		{
+			cout<<ch;
+			ch=fgetc(fl);
+		}
 		cout<<"\n";
+		fclose(fl);
 	}
 	return 0;
 }
