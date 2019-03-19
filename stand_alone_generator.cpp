@@ -29,7 +29,10 @@ int main()
 	"sssd_bellman_ford.cpp",
 	"sssd_dijkstra.cpp",
 	"topological_sort.cpp"};
-	freopen("/media/procyon/New Volume2/Coding/huzaifa242.cpp","w",stdout);
+	string dest;
+	getline(cin,dest);
+	char *d=const_cast<char*>(dest.c_str());
+	freopen(d,"w",stdout);
 	for(auto file:files)
 	{
 		char *f=const_cast<char*>(file.c_str()); 
