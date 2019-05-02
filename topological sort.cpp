@@ -19,7 +19,7 @@ bool topological_sort()
 	{
 		auto u=pq.top();
 		pq.pop();
-		topo.push_bac(u);
+		topo.push_back(u);
 		for(auto i:adjlst[u])
 		{
 			idgr[i]--;
