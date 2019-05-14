@@ -5,6 +5,11 @@ using namespace std;
 #define x first 
 #define y second
 
+long long int seed;
+mt19937 rng(seed=chrono::steady_clock::now().time_since_epoch().count());
+inline long long int rnd(long long int l=0,long long int r=0xFFFFFFFFFFFFFFFL)
+{return uniform_int_distribution<long long int>(l,r)(rng);}
+
 template <typename Arg1,typename Arg2>
 ostream& operator << (ostream& out, const pair<Arg1,Arg2> &a) 
 {return out<<"("<<a.x<<" , "<<a.y<<")";}
