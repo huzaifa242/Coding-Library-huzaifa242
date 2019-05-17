@@ -1,4 +1,22 @@
-/*huzaifa242 copyright*/
+/**************************************************************
+	When you are inspired by passion 
+	and you want to live for the current moment
+
+	When your every thought and action
+	has the power to become the story of your future
+
+	When difficulties stand to demolish your Glory
+	Just remember that Life is a 'Golden adverse Story'
+
+	Withstand it to acheive your passion and dreams
+	more amazingly more easily.
+
+	Why then? When writing the story of your Life
+	You want to Let someone else hold your pen
+
+		huzaifa242 copyright
+
+**************************************************************/
 #include <bits/stdc++.h>
 using namespace std;
 #define MAX 100005
