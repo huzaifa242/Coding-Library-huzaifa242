@@ -3,11 +3,11 @@
 //poss,pose will have position of range of distinct number and fdist will have actual numbers
 
 #define bts 64
-vector<long long int> poss[MAX],pose[MAX],zbit[bts],fdist[MAX];
-long long int nxtchg[MAX][bts];
-void init_fwd(long long int n)
+vector<int> poss[MAX],pose[MAX],zbit[bts],fdist[MAX];
+int nxtchg[MAX][bts];
+void init_fwd(int n)
 {
-	long long int i,j;
+	int i,j;
 	for(i=0;i<n;i++)
 	{
 		for(j=0;j<bts;j++)
@@ -17,9 +17,9 @@ void init_fwd(long long int n)
 		fdist[i].clear();
 	}
 }
-void nxtchg_generator(long long int n)
+void nxtchg_generator(int n)
 {
-	long long int i,j,k;
+	int i,j,k;
 	for(j=0;j<bts;j++)
 	{
 		for(i=n-1;i>=0;i--)
@@ -58,9 +58,9 @@ void nxtchg_generator(long long int n)
 		cout<<endl;
 	}*/	
 }
-void fwd_distinct(long long int n)
+void fwd_distinct(int n)
 {
-	long long int i,j,k,an;
+	int i,j,k,an;
 	init_fwd(n);
 	nxtchg_generator(n);
 	for(i=0;i<n;i++)
@@ -136,11 +136,11 @@ void fwd_distinct(long long int n)
 		cout<<"\n";*/
 	}
 }
-vector<long long int>rposs[MAX],rpose[MAX],rzbit[bts],rdist[MAX];
-long long int prvchg[MAX][bts];
-void init_rev(long long int n)
+vector<int>rposs[MAX],rpose[MAX],rzbit[bts],rdist[MAX];
+int prvchg[MAX][bts];
+void init_rev(int n)
 {
-	long long int i,j;
+	int i,j;
 	for(i=0;i<n;i++)
 	{
 		for(j=0;j<bts;j++)
@@ -150,9 +150,9 @@ void init_rev(long long int n)
 		rdist[i].clear();
 	}
 }
-void prvchg_generator(long long int n)
+void prvchg_generator(int n)
 {
-	long long int i,j,k;
+	int i,j,k;
 	for(j=0;j<bts;j++)
 	{
 		for(i=0;i<n;i++)
@@ -167,7 +167,7 @@ void prvchg_generator(long long int n)
 		}
 	}
 	for(i=0;i<n;i++)
-	sort(prvchg[i],prvchg[i]+bts, greater<long long int>());
+	sort(prvchg[i],prvchg[i]+bts, greater<int>());
 	/*cout<<"RZbit:\n";
 	for(i=0;i<bts;i++)
 		{
@@ -189,9 +189,9 @@ void prvchg_generator(long long int n)
 		cout<<endl;
 	}*/	
 }
-void rev_distinct(long long int n)
+void rev_distinct(int n)
 {
-	long long int i,j,k,an;
+	int i,j,k,an;
 	init_rev(n);
 	prvchg_generator(n);
 	for(i=n-1;i>=0;i--)

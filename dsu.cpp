@@ -5,7 +5,7 @@
   and while returning it updates corresponding children
   1->2->3->4->5     first it reaches 5 then updates par[4]=5
   then updates par[3]=par[4](which is now 5)*/
-long long int dsu[MAX],sz[MAX],connected;
+int dsu[MAX],sz[MAX],connected;
 void clr_dsu(int n)
 {
 	for(int i=0;i<MAX;i++)
@@ -15,7 +15,7 @@ void clr_dsu(int n)
 	}
 	connected=n;
 }
-void find_par(long long int k)
+void find_par(int k)
 {
 	if(dsu[dsu[k]]==k)//reached representative element now update will start
 	return;
@@ -25,7 +25,7 @@ void find_par(long long int k)
 	// Condition when parent is Updated
 }
 // For each Query peform find_par(u),find_par[v]
-void union_all(long long int u, long long int v)
+void union_all(int u, int v)
 {
 	find_par(u);
 	find_par(v);

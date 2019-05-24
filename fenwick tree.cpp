@@ -4,7 +4,7 @@ struct fen
 	//node structure of Fenwick Tree
 }bit[MAX];
 //Point Update
-void update(long long int id, long long int z)
+void update(int id, int z)
 {
 	while(id<=n)
 	{

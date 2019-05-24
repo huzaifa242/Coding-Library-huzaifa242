@@ -3,7 +3,7 @@ struct bkt
 {
 	//Node Structure of Bucket
 };
-long long int bksz=sqrt(n),tbk=(n%bksz==0?n/bksz:(n/bksz)+1),bi;
+int bksz=sqrt(n),tbk=(n%bksz==0?n/bksz:(n/bksz)+1),bi;
 bkt sqan[tbk];
 void sqan_init()
 {
@@ -16,9 +16,9 @@ void sqan_init()
 		//Array bucket relation
 	}
 }
-long long int query(long long int l,long long int r)
+int query(int l,int r)
 {
-	long long int bs,be,ans,s,e;
+	int bs,be,ans,s,e;
 	bs=(l)/bksz+1;
 	be=(r)/bksz;
 	s=((l)/bksz)*bksz;

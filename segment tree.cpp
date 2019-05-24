@@ -4,7 +4,7 @@ struct seg
 	// node structure of segment tree
 	bool lz;//for Lazy Propogation
 }tree[4*MAX];
-void build(long long int node,long long int a[],long long int l,long long int r)
+void build(int node,int a[],int l,int r)
 {
 	//build(1,a,0,n-1);
 	if(l>r)
@@ -15,7 +15,7 @@ void build(long long int node,long long int a[],long long int l,long long int r)
 
 		return;
 	}
-	long long int m=(l+r)/2;
+	int m=(l+r)/2;
 	build(2*node,a,l,m);
 	build(2*node+1,a,m+1,r);
 	
@@ -24,7 +24,7 @@ void build(long long int node,long long int a[],long long int l,long long int r)
 	return;
 }
 //Point Update
-void update(long long int node,long long int a[],long long int l,long long int r,long long int id,long long int z)
+void update(int node,int a[],int l,int r,int id,int z)
 {
 	//update(1,a,0,n-1,ind,val)
 	if(l>r)
@@ -37,7 +37,7 @@ void update(long long int node,long long int a[],long long int l,long long int r
 
 		return;
 	}
-	long long int m=(l+r)/2;
+	int m=(l+r)/2;
 	if(l<=id && id<=m)
 	update(2*node,a,l,m,id,z);
 	else
@@ -48,7 +48,7 @@ void update(long long int node,long long int a[],long long int l,long long int r
 	return;
 }
 //Calculate Lazy Propogation
-void calclazy(long long int node,long long int l,long long int r,long long int x,long long int y)
+void calclazy(int node,int l,int r,int x,int y)
 {
 	//this function relaxes previous lazy values.
 	//call same as query function
@@ -65,7 +65,7 @@ void calclazy(long long int node,long long int l,long long int r,long long int x
 	return;	
 }
 //Range Update
-void updateRange(long long int node,long long int a[],long long int l,long long int r,long long int x,long long int y,long long int z)
+void updateRange(int node,int a[],int l,int r,int x,int y,int z)
 {
 	//update(1,a,0,n-1,left,right,val)
 	if(l>r || x>r || y<l)
@@ -94,7 +94,7 @@ void updateRange(long long int node,long long int a[],long long int l,long long 
 	return;
 }
 //Range Query
-seg query(long long int node,long long int l,long long int r,long long int x, long long int y)
+seg query(int node,int l,int r,int x, int y)
 {
 	//query(1,0,n-1,left,right); left and right are query range
 	//l,r=array  x,y=tree query range returns segment tree node.
@@ -109,7 +109,7 @@ seg query(long long int node,long long int l,long long int r,long long int x, lo
 	
 	if(l>=x && r<=y)
 		return tree[node];
-	long long int m=(l+r)/2;
+	int m=(l+r)/2;
 	seg t1=query(2*node,l,m,x,y);
 	seg t2=query(2*node+1,m+1,r,x,y);
 	seg tr;

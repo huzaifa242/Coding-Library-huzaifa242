@@ -1,8 +1,8 @@
 //Usage dijkstra(source). get_path(source, any_node), ssst holds new tree
 // adjlst stores <weight,node>
-vector<pair<long long int,int> > adjlst[MAX],ssst[MAX];
+vector<pair<int,int> > adjlst[MAX],ssst[MAX];
 int par[MAX],vis[MAX],n,m;
-long long int dst[MAX];
+int dst[MAX];
 vector<int> path;
 void dijkstra(int u)
 {
@@ -14,7 +14,7 @@ void dijkstra(int u)
 		ssst[i].clear();
 	}
 	memset(vis,0,sizeof(vis));
-	priority_queue<pair<long long int,int>, vector<pair<long long int,int> >, greater<pair<long long int,int> > > pq;
+	priority_queue<pair<int,int>, vector<pair<int,int> >, greater<pair<int,int> > > pq;
 	pq.push(make_pair(0LL,u));
 	par[u]=u;
 	dst[u]=0;

@@ -17,31 +17,34 @@
 		huzaifa242 copyright
 
 **************************************************************/
+#include <boost/multiprecision/cpp_int.hpp>
 #include <bits/stdc++.h>
+using namespace boost::multiprecision;
 using namespace std;
+#define int int32_t
 #define MAX 100005
 #define x first 
 #define y second
 
-long long int seed;
+int seed;
 mt19937 rng(seed=chrono::steady_clock::now().time_since_epoch().count());
-inline long long int rnd(long long int l=0,long long int r=0xFFFFFFFFFFFFFFFL)
-{return uniform_int_distribution<long long int>(l,r)(rng);}
+inline int rnd(int l=0,int r=0xFFFFFFFFFFFFFFFL)
+{return uniform_int_distribution<int>(l,r)(rng);}
 
-template <typename Arg1,typename Arg2>
-ostream& operator << (ostream& out, const pair<Arg1,Arg2> &a) 
+template <typename T,typename G>
+ostream& operator << (ostream& out, const pair<T,G> &a) 
 {return out<<"("<<a.x<<" , "<<a.y<<")";}
 
-template <typename Arg1>
-ostream& operator << (ostream& out, const vector<Arg1> &a) 
+template <typename T>
+ostream& operator << (ostream& out, const vector<T> &a) 
 {out<<"[";for(const auto &i:a)out<<i<<" , ";return out<<"]";}
 
-template <typename Arg1>
-ostream& operator << (ostream& out, const set<Arg1> &a) 
+template <typename T>
+ostream& operator << (ostream& out, const set<T> &a) 
 {out<<"{";for(const auto &i:a)out<<i<<" , ";return out<<"}";}
 
-template <typename Arg1,typename Arg2>
-ostream& operator << (ostream& out, const map<Arg1,Arg2> &a) 
+template <typename T,typename G>
+ostream& operator << (ostream& out, const map<T,G> &a) 
 {out<<"<";for(const auto &i:a)out<<i<<" , ";return out<<">";}
 
 template<typename T, size_t N>
@@ -49,10 +52,10 @@ typename enable_if<!is_same<typename remove_cv<T>::type, char>::value,
 ostream&>::type operator<<(ostream& out, T(&a)[N])
 {out<<'[';for(size_t i=0;i<N;++i)out<<a[i]<<" , ";out << ']';return out;}
 
-int main()
+signed main()
 {
 	ios_base::sync_with_stdio(false);
-	cin.tie(NULL);
+	cin.tie(NULL);cout.tie(NULL);
 	#ifndef ONLINE_JUDGE
 		freopen("input.txt","r",stdin);
 		freopen("output.txt","w",stdout);  

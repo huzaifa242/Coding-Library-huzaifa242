@@ -2,10 +2,10 @@
 // adjlst stores <weight,node>
 struct edg
 {
-	long long int u,v,w,id;
+	int u,v,w,id;
 }edglst[MAX];
-vector<pair<long long int,int> > adjlst[MAX],mst[MAX];
-long long int dsu[MAX],sz[MAX],connected,n,m;
+vector<pair<int,int> > adjlst[MAX],mst[MAX];
+int dsu[MAX],sz[MAX],connected,n,m;
 void clr_dsu()
 {
 	for(int i=0;i<MAX;i++)
@@ -16,14 +16,14 @@ void clr_dsu()
 	}
 	connected=n;
 }
-void find_par(long long int k)
+void find_par(int k)
 {
 	if(dsu[dsu[k]]==k)
 	return;
 	find_par(dsu[k]);
 	dsu[k]=dsu[dsu[k]];
 }
-void union_all(long long int u, long long int v)
+void union_all(int u, int v)
 {
 	find_par(u);
 	find_par(v);
@@ -35,10 +35,10 @@ void union_all(long long int u, long long int v)
 	}
 	dsu[dsu[v]]=dsu[u];
 }
-long long int krushkal()
+int krushkal()
 {
 	clr_dsu();
-	long long int sm=0;
+	int sm=0;
 	sort(edglst,edglst+m,[&](edg a,edg b)-> bool {return a.w<b.w;});
 	for(int i=0;i<m;i++)
 	{

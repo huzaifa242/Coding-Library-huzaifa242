@@ -1,5 +1,5 @@
 //Usage floydwarshall()
-long long int dst[MAX][MAX]
+int dst[MAX][MAX]
 void floydwarshall()
 {
 	int i,j,k;

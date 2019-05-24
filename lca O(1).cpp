@@ -73,7 +73,7 @@ void pre_lca(int root)
 }
 int sprs_query(int l, int r)
 {
-	long long int i=log2(r-l);
+	int i=log2(r-l);
 	if(l==r)
 	return l;
 	if(depth[min_sprs[l][i]]> depth[min_sprs[r-(1<<i)][i]])

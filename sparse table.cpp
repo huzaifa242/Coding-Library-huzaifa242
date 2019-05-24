@@ -1,6 +1,6 @@
 //Sparse Table
 #define lgs 20
-long long int sprs[MAX][lgs];
+int sprs[MAX][lgs];
 void build_sprs(int n)
 {
 	memset(sprs,-1,sizeof(sprs));

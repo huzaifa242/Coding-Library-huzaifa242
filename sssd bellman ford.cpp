@@ -1,7 +1,7 @@
 //Usage bellman_ford(). if return true, sssd success else negative cycle exist stored in negcyc
-vector<pair<long long int,int> > adjlst[MAX],ssst[MAX];
+vector<pair<int,int> > adjlst[MAX],ssst[MAX];
 vector<int> negcyc;
-long long int dst[MAX],cnt[MAX],par[MAX],n,m;
+int dst[MAX],cnt[MAX],par[MAX],n,m;
 bool inqueue[MAX];
 void find_neg(int s)
 {
