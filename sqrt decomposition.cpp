@@ -1,4 +1,5 @@
 //SquareRoot Decomposition
+//Usage sqrt_decomposition(size)
 struct bkt
 {
 	//Node Structure of Bucket
@@ -6,7 +7,7 @@ struct bkt
 class sqrt_decomposition
 {
 	private:
-	int bksz=sqrt(n),tbk=(n%bksz==0?n/bksz:(n/bksz)+1);
+	int bksz,tbk,n;
 	vector<bkt> sqan;
 	public:
 	sqrt_decomposition(int size)
@@ -44,7 +45,7 @@ class sqrt_decomposition
 			}
 			else
 			{
-				// l to nearest bucket start   
+				// l to start of nearest bucket
 			}
 		}
 		//cout<<"bs: "<<bs*bksz<<"\n";
