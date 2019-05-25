@@ -1,25 +1,43 @@
 //Fenwick Tree(Binary Indexed Tree)
-struct fen
+//Usage fenwick f1, f2(100);
+struct data
 {
 	//node structure of Fenwick Tree
-}bit[MAX];
-//Point Update
-void update(int id, int z)
+};
+class fenwick
 {
-	while(id<=n)
+	private:
+	vector<data> bit;
+	int n;
+	public:
+	fenwick()
 	{
-		bit[id]= bit[id] * z; //'*' denotes the operation
-		id+=(id & (-id));
+		n=MAX;
+		bit.assign(n,{0});
 	}
-}
-fen query(int id)
-{
-	//Initialize answer variable
-	fen ans;
-	while(id>0)
+	fenwick(int size)
 	{
-		ans= ans * bit[id]; //'*' denotes the operation
-		id-=(id & (-id));
+		n=size;
+		bit.assign(n,{0});
 	}
-	return ans;
-}
+	//Point Update
+	void update(int id, int z)
+	{
+		while(id<=n)
+		{
+			bit[id]= bit[id] * z; //'*' denotes the operation
+			id+=(id & (-id));
+		}
+	}
+	data query(int id)
+	{
+		//Initialize answer variable
+		data ans;
+		while(id>0)
+		{
+			ans= ans * bit[id]; //'*' denotes the operation
+			id-=(id & (-id));
+		}
+		return ans;
+	}
+};
