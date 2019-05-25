@@ -5,16 +5,18 @@
   representative element, then it taues the value
   and while returning it updates corresponding children
   1->2->3->4->5     first it reaches 5 then updates par[4]=5
-  then updates par[3]=par[4](which is now 5)*/
-void find_par(int u)
-{
-	if(par[par[u]]==u)//reached representative element now update will start
-	return;
-	find_par(par[u]);// grandparent update. Parent is not
-	// Condition for Grandparent updated and not parent
-	par[u]=par[par[u]];//Parent Updated
-	// Condition when parent is Updated
-}
+  then updates par[3]=par[4](which is now 5)
+
+	void find_par(int u)
+	{
+		if(par[par[u]]==u)//reached representative element now update will start
+		return;
+		find_par(par[u]);// grandparent update. Parent is not
+		// Condition for Grandparent updated and not parent
+		par[u]=par[par[u]];//Parent Updated
+		// Condition when parent is Updated
+	}
+*/
 class dsu
 {
 	private:
