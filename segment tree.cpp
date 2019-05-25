@@ -1,4 +1,5 @@
 //Segment Tree
+//Usage segment_tree s1(merge_function)
 struct data
 {
 	// node structure of segment tree

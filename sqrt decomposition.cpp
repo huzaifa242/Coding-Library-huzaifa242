@@ -3,56 +3,69 @@ struct bkt
 {
 	//Node Structure of Bucket
 };
-int bksz=sqrt(n),tbk=(n%bksz==0?n/bksz:(n/bksz)+1),bi;
-bkt sqan[tbk];
-void sqan_init()
+class sqrt_decomposition
 {
-	for(i=0;i<tbk;i++)
+	private:
+	int bksz=sqrt(n),tbk=(n%bksz==0?n/bksz:(n/bksz)+1);
+	vector<bkt> sqan;
+	public:
+	sqrt_decomposition(int size)
 	{
-		//init bucket block
+		n=size;
+		bksz=sqrt(n);
+		tbk=(n%bksz==0?n/bksz:(n/bksz)+1);
+		sqan.resize(tbk);
 	}
-	for(i=0;i<n;i++)
+	void sqan_init()
 	{
-		//Array bucket relation
-	}
-}
-int query(int l,int r)
-{
-	int bs,be,ans,s,e;
-	bs=(l)/bksz+1;
-	be=(r)/bksz;
-	s=((l)/bksz)*bksz;
-	//cout<<"s: "<<s<<"\n";
-	//cout<<"bs*bksz: "<<bs*bksz<<"\n";
-	for(i=s;i<bs*bksz;i++)
-	{
-		if(i<l)
+		int i;
+		for(i=0;i<tbk;i++)
 		{
-			// start of this bucket to  l-1
+			//init bucket block
 		}
-		else
+		for(i=0;i<n;i++)
 		{
-			// l to nearest bucket start   
+			//Array bucket relation
 		}
 	}
-	//cout<<"bs: "<<bs*bksz<<"\n";
-	//cout<<"be: "<<be*bksz<<"\n";
-	for(i=bs;i<be;i++)
+	int query(int l,int r)
 	{
-		// block/bucket traversal 
+		int i,bs,be,ans,s,e;
+		bs=(l)/bksz+1;
+		be=(r)/bksz;
+		s=((l)/bksz)*bksz;
+		//cout<<"s: "<<s<<"\n";
+		//cout<<"bs*bksz: "<<bs*bksz<<"\n";
+		for(i=s;i<bs*bksz;i++)
+		{
+			if(i<l)
+			{
+				// start of this bucket to  l-1
+			}
+			else
+			{
+				// l to nearest bucket start   
+			}
+		}
+		//cout<<"bs: "<<bs*bksz<<"\n";
+		//cout<<"be: "<<be*bksz<<"\n";
+		for(i=bs;i<be;i++)
+		{
+			// block/bucket traversal 
+		}
+		e=min((be+1)*bksz,n);
+		//cout<<"be*bksz: "<<be*bksz<<"\n";
+		//cout<<"e: "<<e<<"\n";
+		for(i=be*bksz;i<e;i++)
+		{
+			if(i<=r)
+			{
+				// last bucket to r
+			}
+			else
+			{
+				// r+1 to end of that bucket
+			}
+		}        
 	}
-	e=min((be+1)*bksz,n);
-	//cout<<"be*bksz: "<<be*bksz<<"\n";
-	//cout<<"e: "<<e<<"\n";
-	for(i=be*bksz;i<e;i++)
-	{
-		if(i<=r)
-		{
-			// last bucket to r
-		}
-		else
-		{
-			// r+1 to end of that bucket
-		}
-	}        
-}
+};
