@@ -17,6 +17,7 @@
 		// Condition when parent is Updated
 	}
 */
+//Usage dsu d1(x)
 class dsu
 {
 	private:
@@ -59,4 +60,4 @@ class dsu
 		}
 		par[par[v]]=par[u];
 	}
-}
+};
