@@ -37,7 +37,7 @@ class dsu
 		for(int i=0;i<=n;i++)
 		{
 			par[i]=i;
-			sz[i]=0;
+			sz[i]=1;
 		}
 		connected=n;
 	}
