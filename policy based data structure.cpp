@@ -25,6 +25,7 @@ signed main()
     for(auto u:st)
     cout<<u<<" ";
     cout<<endl;
+
     
     // Remember that element itslef is included in upper_bound 
     // so for strictly less do order_of_key.
@@ -69,3 +70,17 @@ signed main()
       
     return 0; 
 }
+
+/* OUTPUT
+All elements
+2 4 5 6 8 
+The value at 3rd index ::6
+The index of number 6::3
+The number of elements at or after position of 6::2
+The number of elements strictly before the position of 6::3
+The number of elements at or after position of 7::1
+The number of elements strictly before the position of 7::4
+The index of number seven ::4
+All elements
+4 5 6 8 
+*/
