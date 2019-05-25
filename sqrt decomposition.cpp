@@ -1,5 +1,5 @@
 //SquareRoot Decomposition
-//Usage sqrt_decomposition(size)
+//Usage sqrt_decomposition s1(size)
 struct bkt
 {
 	//Node Structure of Bucket
