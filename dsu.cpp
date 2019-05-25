@@ -1,39 +1,60 @@
 //Disjoint Set Union
 // DON'T FORGET TO INITIALIZE PARENT
+// in union_all(u,v) v is joined into u.
 /*Find parent is post order. i.e. first  reaches
-  representative element, then it takes the value
+  representative element, then it taues the value
   and while returning it updates corresponding children
   1->2->3->4->5     first it reaches 5 then updates par[4]=5
   then updates par[3]=par[4](which is now 5)*/
-int dsu[MAX],sz[MAX],connected;
-void clr_dsu(int n)
+void find_par(int u)
 {
-	for(int i=0;i<MAX;i++)
-	{
-		dsu[i]=i;
-		sz[i]=0;
-	}
-	connected=n;
-}
-void find_par(int k)
-{
-	if(dsu[dsu[k]]==k)//reached representative element now update will start
+	if(par[par[u]]==u)//reached representative element now update will start
 	return;
-	find_par(dsu[k]);// grandparent update. Parent is not
+	find_par(par[u]);// grandparent update. Parent is not
 	// Condition for Grandparent updated and not parent
-	dsu[k]=dsu[dsu[k]];//Parent Updated
+	par[u]=par[par[u]];//Parent Updated
 	// Condition when parent is Updated
 }
-// For each Query peform find_par(u),find_par[v]
-void union_all(int u, int v)
+class dsu
 {
-	find_par(u);
-	find_par(v);
-	if(dsu[u]!=dsu[v])
+	private:
+	int par[MAX],sz[MAX];
+	void find_par(int u)
 	{
-		connected--;
-		sz[dsu[u]]+=sz[dsu[dsu[v]]];
-		sz[dsu[dsu[v]]]=0;
+		if(par[par[u]]==u)
+		return;
+		find_par(par[u]);
+		par[u]=par[par[u]];
 	}
-	dsu[dsu[v]]=dsu[u];
+	public:
+	int connected;
+	dsu(){}
+	dsu(int n)
+	{
+		for(int i=0;i<=n;i++)
+		{
+			par[i]=i;
+			sz[i]=0;
+		}
+		connected=n;
+	}
+	int get_par(int u)
+	{
+		find_par(u);
+		return par[u];
+	}
+	int get_size(int u)
+	{
+		return sz[get_par(u)];
+	}
+	void union_all(int u, int v)
+	{
+		if(get_par(u)!=get_par(v))
+		{
+			connected--;
+			sz[par[u]]+=sz[par[par[v]]];
+			sz[par[par[v]]]=0;
+		}
+		par[par[v]]=par[u];
+	}
 }
