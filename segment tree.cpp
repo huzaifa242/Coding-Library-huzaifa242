@@ -1,120 +1,130 @@
 //Segment Tree
-struct seg
+struct data
 {
 	// node structure of segment tree
 	bool lz;//for Lazy Propogation
-}tree[4*MAX];
-void build(int node,int a[],int l,int r)
+};
+class segment_tree
 {
-	//build(1,a,0,n-1);
-	if(l>r)
-	return;
-	if(l==r)
+	private:
+	data tree[MAX];
+	function<data(data,data)> merge;
+	public:
+	segment_tree(auto fnc)
 	{
-		//leaf node of segment tree
-
+		merge=fnc;
+	}
+	void build(int node,int a[],int l,int r)
+	{
+		//build(1,a,0,n-1);
+		if(l>r)
 		return;
-	}
-	int m=(l+r)/2;
-	build(2*node,a,l,m);
-	build(2*node+1,a,m+1,r);
-	
-	// merging of nodes
-
-	return;
-}
-//Point Update
-void update(int node,int a[],int l,int r,int id,int z)
-{
-	//update(1,a,0,n-1,ind,val)
-	if(l>r)
-	return;
-	if(l==r)
-	{
-		a[l]=z;
-		
-		//leaf node of segment tree a[l]=point update id=index z=new value l,r =tree range
-
-		return;
-	}
-	int m=(l+r)/2;
-	if(l<=id && id<=m)
-	update(2*node,a,l,m,id,z);
-	else
-	update(2*node+1,a,m+1,r,id,z);
-	
-	// merging of nodes
-	
-	return;
-}
-//Calculate Lazy Propogation
-void calclazy(int node,int l,int r,int x,int y)
-{
-	//this function relaxes previous lazy values.
-	//call same as query function
-	if(!tree[node].lz)
-	return;
-	tree[node].lz=false;
-	// Apply Lazy Logic to current node
-
-	if(l!=r)
-	{	tree[2*node].lz=true;
-		tree[2*node+1].lz = true; 
-		//Propogate to child
-	}
-	return;	
-}
-//Range Update
-void updateRange(int node,int a[],int l,int r,int x,int y,int z)
-{
-	//update(1,a,0,n-1,left,right,val)
-	if(l>r || x>r || y<l)
-	{
-		//out of range
-		return ;
-	}
-	calclazy(node,l,r,x,y);
-	if(l>=x && r<=y)
-	{
-		tree[node].lz=false;
-		//Apply Lazy Logic to current Node
-		if(l!=r)
+		if(l==r)
 		{
-			tree[2*node].lz=true;
-			tree[2*node+1].lz=true;
+			//leaf node of segment tree
+			tree[node]=a[l];
+			tree[node].lz=false;
+			return;
+		}
+		int m=(l+r)/2;
+		build(2*node,a,l,m);
+		build(2*node+1,a,m+1,r);
+		// merging of nodes
+		tree[node]=merge(tree[2*node],tree[2*node+1]);
+		return;
+	}
+	//Point Update
+	void update(int node,int a[],int l,int r,int id,int z)
+	{
+		//update(1,a,0,n-1,ind,val)
+		if(l>r)
+		return;
+		if(l==r)
+		{
+			a[l]=z;
+			tree[node]=a[l];
+			//leaf node of segment tree a[l]=point update id=index z=new value l,r =tree range
+
+			return;
+		}
+		int m=(l+r)/2;
+		if(l<=id && id<=m)
+		update(2*node,a,l,m,id,z);
+		else
+		update(2*node+1,a,m+1,r,id,z);
+		// merging of nodes
+		tree[node]=merge(tree[2*node],tree[2*node+1]);
+		return;
+	}
+	//Calculate Lazy Propogation
+	void calclazy(int node,int l,int r,int x,int y)
+	{
+		//this function relaxes previous lazy values.
+		//call same as query function
+		if(!tree[node].lz)
+		return;
+		tree[node].lz=false;
+		// Apply Lazy Logic to current node
+
+		if(l!=r)
+		{	tree[2*node].lz=true;
+			tree[2*node+1].lz = true; 
 			//Propogate to child
 		}
+		return;	
+	}
+	//Range Update
+	void updateRange(int node,int a[],int l,int r,int x,int y,int z)
+	{
+		//update(1,a,0,n-1,left,right,val)
+		if(l>r || x>r || y<l)
+		{
+			//out of range
+			return ;
+		}
+		calclazy(node,l,r,x,y);
+		if(l>=x && r<=y)
+		{
+			tree[node].lz=false;
+			//Apply Lazy Logic to current Node
+			if(l!=r)
+			{
+				tree[2*node].lz=true;
+				tree[2*node+1].lz=true;
+				//Propogate to child
+			}
+			return;
+		}
+		int m=(l+r)/2;
+		updateRange(2*node,a,l,m,x,y,z);
+		updateRange(2*node +1, a,m+1,r,x,y,z);
+		// merging of nodes
+		tree[node]=merge(tree[2*node],tree[2*node+1]);
 		return;
 	}
-	int m=(l+r)/2;
-	updateRange(2*node,a,l,m,x,y,z);
-	updateRange(2*node +1, a,m+1,r,x,y,z);
-	// merging of nodes
-
-	return;
-}
-//Range Query
-seg query(int node,int l,int r,int x, int y)
-{
-	//query(1,0,n-1,left,right); left and right are query range
-	//l,r=array  x,y=tree query range returns segment tree node.
-	if(l>r || x>r || y<l)
+	//Range Query
+	data query(int node,int l,int r,int x, int y)
 	{
-		seg grbg;
-		//set garbge value for grbg
-		return grbg;
+		//query(1,0,n-1,left,right); left and right are query range
+		//l,r=array  x,y=tree query range returns segment tree node.
+		if(l>r || x>r || y<l)
+		{
+			data grbg;
+			//set garbge value for grbg
+			return grbg;
+		}
+		
+		calclazy(node,l,r,x,y);// Only for Lazy Propogation
+		
+		if(l>=x && r<=y)
+			return tree[node];
+		int m=(l+r)/2;
+		data t1=query(2*node,l,m,x,y);
+		data t2=query(2*node+1,m+1,r,x,y);
+		data tr;
+		
+		// merging of nodes
+		tr=merge(t1,t2);
+		return tr;
 	}
-	
-	calclazy(node,l,r,x,y);// Only for Lazy Propogation
-	
-	if(l>=x && r<=y)
-		return tree[node];
-	int m=(l+r)/2;
-	seg t1=query(2*node,l,m,x,y);
-	seg t2=query(2*node+1,m+1,r,x,y);
-	seg tr;
-	
-	// merging of nodes
-
-	return tr;
-}
+};
