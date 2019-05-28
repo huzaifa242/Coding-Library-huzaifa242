@@ -84,17 +84,23 @@ void prmfactgenerator()
 		cout<<endl;*/
 	}
 }
-//Seive Of Eratosthenes
-bool prime;
+//Linear Sieve to get all prime Numbers
+bool isprime;
+vector<int> prime;
 void sieve()
 {
-	memset(prime,true,sizeof(prime));
+	memset(isprime,true,sizeof(isprime));
 	int i,j;
-	for(i=2;i*i<=MAX;i++)
+	for(i=2;i<MAX;i++)
 	{
-		if(prime[i])
-		for(j=i*2;j<=MAX;j+=i)
-		prime[j]=false;
+		if(isprime[i])
+		prime.push_back(i);
+		for(j=2;j<prime.size() && i*prime[j]<MAX;j++)
+		{
+			prime[j*i]=false;
+			if(i%prime[j] ==0)
+			break;
+		}
 	}
 }
 //Matrix Exponentation mat=2*2 use modulo
