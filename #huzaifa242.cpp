@@ -18,8 +18,8 @@
 
 **************************************************************/
 #include <boost/multiprecision/cpp_int.hpp>
-#include <bits/stdc++.h>
 using namespace boost::multiprecision;
+#include <bits/stdc++.h>
 using namespace std;
 #define int int32_t
 #define MAX 100005
