@@ -1,5 +1,6 @@
 //Segment Tree
-//Usage segment_tree s1(merge_function)
+//Usage segment_tree s1(merge_function,size)
+//Usage segment_tree s1(merge_function,)
 struct data
 {
 	// node structure of segment tree
@@ -8,12 +9,18 @@ struct data
 class segment_tree
 {
 	private:
-	data tree[MAX];
+	vector<data> tree;
 	function<data(data,data)> merge;
 	public:
+	segment_tree(auto fnc,int size)
+	{
+		merge=fnc;
+		tree.resize(4*size);
+	}
 	segment_tree(auto fnc)
 	{
 		merge=fnc;
+		tree.resize(4*MAX);
 	}
 	void build(int node,int a[],int l,int r)
 	{
