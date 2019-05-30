@@ -6,7 +6,7 @@ int repl_pos(int l,int r,int x)
 	while(l<=r)
 	{
 		m=(l+r)/2;
-		if(ls[m]>=x)
+		if(ls[m]>=x)//for repeated allowed change here also
 		{
 			r=m-1;
 			ans=m;
@@ -23,7 +23,7 @@ int lis()
 	ls[0]=a[0];
 	for(i=1;i<n;i++)
 	{
-		if(a[i]>ls[lisp-1])//for repeated allowed change here
+		if(a[i]>ls[lisp-1])//for repeated allowed change here also
 		ls[lisp++]=a[i];
 		else
 		ls[repl_pos(0,lisp-1,a[i])]=a[i];
