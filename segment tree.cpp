@@ -97,6 +97,16 @@ class segment_tree
 			return;
 		}
 		int m=(l+r)/2;
+		if(m>=y)
+		{
+			updateRange(2*node,a,l,m,x,y,z);
+			return;	
+		}
+		else if(m<x)
+		{
+			updateRange(2*node +1, a,m+1,r,x,y,z);
+			return;
+		}
 		updateRange(2*node,a,l,m,x,y,z);
 		updateRange(2*node +1, a,m+1,r,x,y,z);
 		// merging of nodes
@@ -120,6 +130,10 @@ class segment_tree
 		if(l>=x && r<=y)
 			return tree[node];
 		int m=(l+r)/2;
+		if(m>=y)
+			return query(2*node,l,m,x,y);
+		else if(m<x)
+			return query(2*node+1,m+1,r,x,y); 
 		data t1=query(2*node,l,m,x,y);
 		data t2=query(2*node+1,m+1,r,x,y);
 		data tr;
