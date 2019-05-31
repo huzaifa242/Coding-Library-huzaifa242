@@ -9,8 +9,8 @@ class ConvexHull_trick
 	class line
 	{
 		private:
-		int m,c;
-		long double xlft;
+		int m,c;// y= mx+c
+		long double xlft; //Stores the intersection wiith previous line in the convex hull. First line has -inf
 		public:
 		enum qtype {noq,maxq,minq} type;
 		int val;
@@ -99,6 +99,7 @@ class ConvexHull_trick
 	{
 		line ll=line(m,c);
 		suto it=hull.lower_bound(ll);
+		//For Parallel lines emove useless ones
 		if(it!=hull.end() && ll.isparallel(*it))
 		{
 			if((maxQ && it->getc() < c) || (!maxQ && it->getc() > c))
@@ -112,10 +113,12 @@ class ConvexHull_trick
 			hull.erase(it);
 			return;
 		}
+		//Remove lines which are useless after inserting
 		while(hasprev(it) && useless(prev(it)))
 			hull.erase(prev(it));
 		while(hasnext(it) && useless(next(it)))
 			hull.erase(next(it));
+		//Update the left Border
 		it=updateleftborder(it);
 		if(hasprev(it))
 			updateleftborder(prev(it));
