@@ -95,9 +95,9 @@ void sieve()
 	{
 		if(isprime[i])
 		prime.push_back(i);
-		for(j=2;j<prime.size() && i*prime[j]<MAX;j++)
+		for(j=0;j<(int)prime.size() && i*prime[j]<MAX;j++)
 		{
-			prime[j*i]=false;
+			isprime[prime[j]*i]=false;
 			if(i%prime[j] ==0)
 			break;
 		}
