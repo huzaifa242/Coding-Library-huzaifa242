@@ -1,6 +1,7 @@
-//Usage
+//Usage for array
 //vector<ConvexHull_trick> poly(MAX,ConvexHull_trick(false));
-
+//Usage for Single
+//ConvexHull_trick poly(false);
 class ConvexHull_trick
 {
 	public:
