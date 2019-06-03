@@ -106,16 +106,17 @@ class segment_tree
 		int m=(l+r)/2;
 		if(m>=y)
 		{
-			updateRange(2*node,a,l,m,x,y,z);
-			return;	
+			updateRange(2*node,a,l,m,x,y,z);	
 		}
 		else if(m<x)
 		{
 			updateRange(2*node +1, a,m+1,r,x,y,z);
-			return;
 		}
-		updateRange(2*node,a,l,m,x,y,z);
-		updateRange(2*node +1, a,m+1,r,x,y,z);
+		else
+		{
+			updateRange(2*node,a,l,m,x,y,z);
+			updateRange(2*node +1, a,m+1,r,x,y,z);
+		}
 		// merging of nodes
 		tree[node]=merge(tree[2*node],tree[2*node+1]);
 		return;
