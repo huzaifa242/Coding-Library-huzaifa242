@@ -85,38 +85,24 @@ class segment_tree
 	void updateRange(int node,int a[],int l,int r,int x,int y,int z)
 	{
 		//update(1,a,0,n-1,left,right,val)
+		
+		calclazy(node,l,r,x,y);
+		
 		if(l>r || x>r || y<l)
 		{
 			//out of range
 			return ;
 		}
-		calclazy(node,l,r,x,y);
 		if(l>=x && r<=y)
 		{
-			tree[node].lz=false;
+			tree[node].lz=true;
 			//Apply Lazy Logic to current Node
-			if(l!=r)
-			{
-				tree[2*node].lz=true;
-				tree[2*node+1].lz=true;
-				//Propogate to child
-			}
+			calclazy(node,l,r,x,y);
 			return;
 		}
 		int m=(l+r)/2;
-		if(m>=y)
-		{
-			updateRange(2*node,a,l,m,x,y,z);	
-		}
-		else if(m<x)
-		{
-			updateRange(2*node +1, a,m+1,r,x,y,z);
-		}
-		else
-		{
-			updateRange(2*node,a,l,m,x,y,z);
-			updateRange(2*node +1, a,m+1,r,x,y,z);
-		}
+		updateRange(2*node,a,l,m,x,y,z);
+		updateRange(2*node +1, a,m+1,r,x,y,z);
 		// merging of nodes
 		tree[node]=merge(tree[2*node],tree[2*node+1]);
 		return;
@@ -126,14 +112,15 @@ class segment_tree
 	{
 		//query(1,0,n-1,left,right); left and right are query range
 		//l,r=array  x,y=tree query range returns segment tree node.
+		
+		calclazy(node,l,r,x,y);// Only for Lazy Propogation
+
 		if(l>r || x>r || y<l)
 		{
 			data grbg;
 			//set garbge value for grbg
 			return grbg;
 		}
-		
-		calclazy(node,l,r,x,y);// Only for Lazy Propogation
 		
 		if(l>=x && r<=y)
 			return tree[node];
