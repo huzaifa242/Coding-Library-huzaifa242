@@ -3,7 +3,7 @@
 vector<int> z_algo(string s)
 {
 	int i,l,r;
-	vector<int> zeta(n);
+	vector<int> zeta(s.size());
 	for (i=1,l=0,r=0; i<s.size();i++)
 	{
 		if (i<=r)
