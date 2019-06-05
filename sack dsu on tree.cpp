@@ -14,7 +14,7 @@ void getsize(int x,int p)
 	for(auto u:adjlst[x])
 	if(u!=p)
 	{
-		dfs(u,x);
+		getsize(u,x);
 		sbsz[x]+=sbsz[u];
 	}
 }
