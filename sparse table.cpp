@@ -15,7 +15,7 @@ class sparse_table
 	{
 		n=size;
 	}
-	void build(int n)
+	void build()
 	{
 		memset(sprs,-1,sizeof(sprs));
 		int i,j;
