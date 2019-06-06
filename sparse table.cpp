@@ -45,4 +45,4 @@ class sparse_table
 			}
 		}
 	}
-}
+};
