@@ -85,19 +85,24 @@ void prmfactgenerator()
 	}
 }
 //Linear Sieve to get all prime Numbers
-bool isprime;
+//prime contains all prime number [2,MAX)
+//isprime[x] has the smallest prime divisor of x 
+int isprime[MAX];
 vector<int> prime;
 void sieve()
 {
-	memset(isprime,true,sizeof(isprime));
+	memset(isprime,0,sizeof(isprime));
 	int i,j;
 	for(i=2;i<MAX;i++)
 	{
-		if(isprime[i])
-		prime.push_back(i);
+		if(isprime[i]==0)
+		{
+			prime.push_back(i);
+			isprime[i]=i;
+		}
 		for(j=0;j<(int)prime.size() && i*prime[j]<MAX;j++)
 		{
-			isprime[prime[j]*i]=false;
+			isprime[prime[j]*i]=prime[j];
 			if(i%prime[j] ==0)
 			break;
 		}
