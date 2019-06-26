@@ -28,7 +28,7 @@ int min_edit(string &a,string &b, int ins=1, int rmv=1,int sub=2)
 	cs=sub;
 	return min(conv_atob(a,b),conv_atob(b,a));
 }
-//--------------------------------------------------------------------------------
+//---------------------------------------------------------
 //Usage same as above just use for case resticted where 
 // cost cannot increase k
 int cr,ci,cs,mdpp[MAX],mdps[MAX];
