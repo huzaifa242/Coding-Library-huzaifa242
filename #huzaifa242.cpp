@@ -1,4 +1,4 @@
-/**************************************************************
+/************************************************************
 	When you are inspired by passion 
 	and you want to live for the current moment
 
@@ -16,7 +16,7 @@
 
 		huzaifa242 copyright
 
-**************************************************************/
+************************************************************/
 #include <boost/multiprecision/cpp_int.hpp>
 using namespace boost::multiprecision;
 #include <bits/stdc++.h>
