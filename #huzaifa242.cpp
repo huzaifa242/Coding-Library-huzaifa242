@@ -14,7 +14,7 @@
 	Why then? When writing the story of your Life
 	You want to Let someone else hold your pen
 
-		huzaifa242 copyright
+					huzaifa242©
 
 ************************************************************/
 #include <boost/multiprecision/cpp_int.hpp>
