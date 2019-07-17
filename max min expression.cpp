@@ -19,7 +19,7 @@ void max_min_expression()
 			mn[i][j]=mx[i][j]=v[i];
 		}
 	}
-	for(l=2;l<v.size();l++)
+	for(l=2;l<=v.size();l++)
 	{
 		for(i=0;i<v.size()-l+1;i++)
 		{
