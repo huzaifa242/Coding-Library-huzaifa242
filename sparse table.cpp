@@ -8,16 +8,23 @@ struct data
 class sparse_table
 {
 	private:
-	data sprs[MAX][lgs];
+	vector<vector<data> > sprs;
 	int n;
 	public:
+	sparse_table()
+	{}
 	sparse_table(int size)
 	{
 		n=size;
+		sprs.assign(n,vector<data>(lgs,{/*initialize here*/}));
+	}
+	void setsize(int size)
+	{
+		n=size;
+		sprs.assign(n,vector<data>(lgs,{/*initialize here*/}));
 	}
 	void build()
 	{
-		memset(sprs,-1,sizeof(sprs));
 		int i,j;
 		for(i=0;i<n;i++)
 		sprs[i][0]=//initialize value;

@@ -34,17 +34,15 @@ class centroid_decomposition
 	void decompose(int u,int pr,int l)
 	{
 		tot=0;
-		gettsz(u,0);
-		int centro=find_centroid(u,0);
-		par[centro]=pr;
+		gettsz(u,u);
+		int centro=find_centroid(u,u);
+		par[centro]=(pr?pr:centro);
 		lvl[centro]=l;
-		for(auto v:adjlst[u])
+		dead[centro]=1;
+		for(auto v:adjlst[centro])
 		{
 			if(!dead[v])
-			{
-				dead[centro]=1;
-				decompose(v,centro,l+1);
-			}
+			decompose(v,centro,l+1);
 		}
 	}
 	public:
@@ -54,7 +52,7 @@ class centroid_decomposition
 		par.assign(n+1,0);
 		lvl.reserve(n+1);
 		tsz.reserve(n+1);
-		dead.reserve(n+1,0);
+		dead.assign(n+1,0);
 		pre_lca(root);
 		decompose(root,0,1);
 	}

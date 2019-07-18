@@ -2,7 +2,48 @@
 //LCA O(1)
 #define lgs 20
 vector<int> adjlst[MAX],euler,depth;
-int foc[MAX],lvl[MAX],par[MAX],ptr,min_sprs[MAX][lgs];
+int foc[MAX],lvl[MAX],par[MAX],ptr;
+class sparse_table
+{
+	private:
+	vector<vector<int> > sprs;
+	int n;
+	public:
+	sparse_table()
+	{}
+	sparse_table(int size)
+	{
+		n=size;
+		sprs.assign(n,vector<int>(lgs,-1));
+	}
+	void setsize(int size)
+	{
+		n=size;
+		sprs.assign(n,vector<int>(lgs,-1));
+	}
+	void build()
+	{
+		int i,j;
+		for(i=0;i<n;i++)
+		sprs[i][0]=i;
+		for(j=1;j<lgs;j++)
+		{
+			for(i=0;i+(1<<j)<=n;i++)
+			{
+				int u=sprs[i][j-1],v=sprs[i+(1<<(j-1))][j-1];
+				sprs[i][j]=(depth[u]>depth[v]?v:u);
+			}
+		}
+	}
+	int query(int l, int r)
+	{
+		int i=log2(r-l+1),j;
+		int u=sprs[l][i];
+		int v=sprs[r-(1<<i)+1][i];
+		return (depth[u]>depth[v]?v:u);
+	}
+} bld_sprs;
+
 void lca_dfs(int x,int pr,int dep)
 {
 	lvl[x]=dep;
@@ -12,10 +53,8 @@ void lca_dfs(int x,int pr,int dep)
 	euler.push_back(x);
 	depth.push_back(dep);
 	ptr++;
-	//cout<<x<<"$"<<par[x]<<" "<<lvl[x]<<"\n";
 	for(int i=0;i<adjlst[x].size();i++)
 	{
-		//cout<<adjlst[x][i]<<"#\n";
 		if(pr!=adjlst[x][i])
 		{
 			lca_dfs(adjlst[x][i],x,dep+1);
@@ -25,31 +64,6 @@ void lca_dfs(int x,int pr,int dep)
 		}
 	}
 	return;
-}
-void bld_sprs(int n)
-{
-	memset(min_sprs,-1,sizeof(min_sprs));
-	int i,j;
-	for(i=1;i<n;i++)
-	{
-		min_sprs[i-1][0]=(depth[i]>depth[i-1])?i-1:i;
-	}
-	for(j=1;j<lgs;j++)
-	{
-		for(i=0;i<n;i++)
-		{
-			if(min_sprs[i][j-1]!=-1  && min_sprs[i+(1<<(j-1))][j-1]!=-1)
-			{
-				min_sprs[i][j]=
-				(depth[min_sprs[i][j-1]] > depth[min_sprs[i+(1<<(j-1))][j-1]]) ? 
-				min_sprs[i+(1<<(j-1))][j-1]: min_sprs[i][j-1];
-			}
-			else
-			break;
-			//cout<<min_sprs[i][j]<<" ";
-		}
-		//cout<<"\n";
-	}
 }
 void pre_lca(int root)
 {
@@ -62,24 +76,11 @@ void pre_lca(int root)
 	cout<<foc[i]<<" ";
 	cout<<"\n";
 	cout<<"euler:\n";
-	for(i=0;i<euler.size();i++)
-	cout<<euler[i]<<" ";
-	cout<<"\n";
+	cout<<euler<<endl;
 	cout<<"depth:\n";
-	for(i=0;i<depth.size();i++)
-	cout<<depth[i]<<" ";
-	cout<<"\n";*/
-	bld_sprs(depth.size());
-}
-int sprs_query(int l, int r)
-{
-	int i=log2(r-l);
-	if(l==r)
-	return l;
-	if(depth[min_sprs[l][i]]> depth[min_sprs[r-(1<<i)][i]])
-	return min_sprs[r-(1<<i)][i];
-	else
-	return min_sprs[l][i];
+	cout<<depth<<endl;*/
+	bld_sprs.setsize(depth.size());
+	bld_sprs.build();
 }
 int lca(int u, int v)
 {
@@ -87,5 +88,9 @@ int lca(int u, int v)
 	return u;
 	else if(foc[u]>foc[v])
 	swap(u,v);
-	return euler[sprs_query(foc[u],foc[v])];
+	return euler[bld_sprs.query(foc[u],foc[v])];
+}
+int dist(int u,int v)
+{
+	return lvl[u]+lvl[v]-2*lvl[lca(u,v)];
 }
