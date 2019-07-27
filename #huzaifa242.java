@@ -3,7 +3,7 @@ import java.util.*;
 import java.math.*;
 import java.text.*;
 
-public class Main
+public class class_name
 {
 	private boolean ONLINE_JUDGE=System.getProperty("ONLINE_JUDGE") != null;
 	private boolean INTERACTIVE=false;
@@ -43,7 +43,7 @@ public class Main
 
 	public static void main(String[] args) throws Exception
 	{
-		new Main().run();
+		new class_name().run();
 	}
 
 	class Reader
@@ -144,7 +144,7 @@ public class Main
 			this.x=x;
 			this.y=y;
 		}
-		String toString()
+		public String toString()
 		{
 			return " <"+x.toString()+","+y.toString()+"> ";
 		}
