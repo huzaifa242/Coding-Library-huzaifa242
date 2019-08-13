@@ -1,6 +1,7 @@
 //Boost library for 128 bit int
 #include <boost/multiprecision/cpp_int.hpp>
 using namespace boost::multiprecision;
+#define ll int128_t
 /*priority Queue Structure
 priority_queue<T, vector<T>,decltype(pqcmp)> pq(pqcmp);*/
 auto pqcmp=[&](T a,T b)
