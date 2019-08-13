@@ -64,3 +64,11 @@ void find_closest()
 	closest_points(0,pt.size()-1);
 	sort(pt.begin(),pt.end(),by_id);
 }
+
+//sort by polar angle in clockwise direction
+//for counter clockwise make it > 0
+auto polarangle=[&](point a,point b,point c)
+{	
+	//if this is positive then ab is clockwise from ac
+	return (b.x-a.x)*(c.y-a.y)-(c.x-a.x)*(b.y-a.y)<0;
+};
