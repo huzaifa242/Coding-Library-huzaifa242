@@ -108,43 +108,6 @@ void sieve()
 		}
 	}
 }
-//Matrix Exponentation mat=2*2 use modulo
-void multex(int a[2][2],int c[2][2])
-{
-	int i,j,k,b[2][2]={0};
-	for(i=0;i<2;i++)
-	for(j=0;j<2;j++)
-	for(k=0;k<2;k++)
-	{
-		b[i][j]+=md(a[i][k]*c[k][j]);
-		b[i][j]=md(b[i][j]);
-	}
-	for(i=0;i<2;i++)
-	for(j=0;j<2;j++)
-	a[i][j]=b[i][j];
-}
-void matexp(int a[2][2],int ans[2][2],int s)
-{
-	int i,j;
-	if(s==1)
-	{
-		ans[0][0]=a[0][0];
-		ans[0][1]=a[0][1];
-		ans[1][0]=a[1][0];
-		ans[1][1]=a[1][1];
-	}
-	else if(s%2)
-	{
-		matexp(a,ans,s/2);
-		multex(ans,ans);
-		multex(ans,a);
-	}
-	else
-	{
-		matexp(a,ans,s/2);
-		multex(ans,ans);
-	}
-}
 //nCr Matrix use modulo
 int ncr[MAX][MAX];
 void ncomr()

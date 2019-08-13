@@ -17,8 +17,6 @@
 					huzaifa242©
 
 ***********************************************************/
-#include <boost/multiprecision/cpp_int.hpp>
-using namespace boost::multiprecision;
 #include <bits/stdc++.h>
 using namespace std;
 #define int int32_t
