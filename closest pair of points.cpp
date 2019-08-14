@@ -65,10 +65,11 @@ void find_closest()
 	sort(pt.begin(),pt.end(),by_id);
 }
 
-//sort by polar angle in clockwise direction
-//for counter clockwise make it > 0
+//sort by polar angle in counter-clockwise direction
+//for clockwise change the < to >
+//atan2(y,x) gives the angle from positive x-axis
+//handle negative angles carefully
 auto polarangle=[&](point a,point b,point c)
 {	
-	//if this is positive then ab is clockwise from ac
-	return (b.x-a.x)*(c.y-a.y)-(c.x-a.x)*(b.y-a.y)<0;
+	return atan2(b.y-a.y,b.x-a.x)<atan2(c.y-a.y,c.x-a,x);
 };
