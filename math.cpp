@@ -1,4 +1,4 @@
-#define PI 3.1415926535897932384626
+const long double PI=acos(-1.0);
 #define mod 1000000007
 //Mod function
 int md(int x)
