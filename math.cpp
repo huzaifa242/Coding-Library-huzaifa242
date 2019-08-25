@@ -1,48 +1,48 @@
 const long double PI=acos(-1.0);
 #define mod 1000000007
 //Mod function
-int md(int x)
+int md(int x,int mdo=mod)
 {
 	while(x<0)
-	x+=mod;
-	return x%mod;
+	x+=mdo;
+	return x%mdo;
 }
 //Multiply large Number num>=1e9 use Modulo
-int multi(int a, int b)
+int multi(int a, int b, int mdo=mod)
 {
 	int pro=0;
-	a=md(a);
+	a=md(a,mdo);
 	while(b)
 	{
 		if(b&1)
-		pro=md(md(pro)+md(a));
-		a=md(a*2);
+		pro=md(md(pro,mdo)+md(a,mdo),mdo);
+		a=md(a*2,mdo);
 		b>>=1;
 	}
 	return pro;
 }
 //Power Function A raised to B use modulo
-int pwr(int a,int n)
+int pwr(int a,int n,int mdo=mod)
 {
 	if(n==0)
 	return 1;
 	else if(n==1)
-	return a;
+	return md(a,mdo);
 	else if(n&1)
 	{
-		int x=pwr(a,n/2);
-		if(x<mod)
-		return md(md(md(x)*md(x))*a);
+		int x=pwr(a,n/2,mdo);
+		if(x<mdo)
+		return md(md(md(x,mdo)*md(x,mdo),mdo)*a,mdo);
 		else
-		return md(multi(md(multi(x,x)),a));
+		return md(multi(md(multi(x,x,mdo),mdo),a,mdo),mdo);
 	}
 	else
 	{
-		int x=pwr(a,n/2);
-		if(x<mod)
-		return md(md(md(x)*md(x))*1);
+		int x=pwr(a,n/2,mdo);
+		if(x<mdo)
+		return md(md(md(x,mdo)*md(x,mdo),mdo)*1,mdo);
 		else
-		return md(multi(md(multi(x,x)),1));
+		return md(multi(md(multi(x,x,mdo),mdo),1,mdo),mdo);
 	}
 }
 //Modulo Inverse use modulo
@@ -123,4 +123,35 @@ void ncomr()
 			ncr[i][j]=md(ncr[i-1][j-1]+ncr[i-1][j]);
 		}
 	}
+}
+//Primality Test take power Funtion
+bool miller(int d,int n)
+{
+	int a = 2 + rand() % (n - 4);
+	int x=pwr(a,d,n); 
+	if(x==1 || x==n-1) 
+	   return true; 
+	while(d!=n-1) 
+	{ 
+		x=(x*x)%n; 
+		d*=2; 
+		if(x==1)
+			return false; 
+		if(x==n-1)
+			return true; 
+	} 
+	return false; 
+}
+
+bool prime_chk(int n)
+{
+	if(n<MAX)
+		return isprime[n]==n;
+	int pp2=n-1;
+	while(pp2%2==0)
+		pp2/=2;
+	for(int i=0;i<20;i++)
+		if(!miller(pp2,n))
+			return false;
+	return true;
 }
