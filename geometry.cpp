@@ -126,17 +126,18 @@ class l_segment
 		l=line<T>(_a,_b);
 		a=_a,b=_b;
 	}
-	bool on_segment(const point<T> &p)
+	bool on_segment(point<T> &p)
 	{
-		bool on=true;
-		on&=min(a.x,b.x)<=p.x+eps && p.x<=max(a.x,b.x)+eps;
-		on&=min(a.y,b.y)<=p.y+eps && p.y<=max(a.y,b.y)+eps;
-		return on;
+		if((b-a).cross(p-a)!=0)
+			return false;
+		if((b-a).dot(p-a)<0 || (b-a).dot(p-a)>(b-a).dot(b-a) )
+			return false;
+		return true;
 	}
 	point<T> intersect(l_segment &ls)
 	{
 		point<T> insec=l.intersect(ls.l);
-		return on_segment(insec)?insec:point<T>(-eps,eps);
+		return on_segment(insec)&&ls.on_segment(insec)?insec:point<T>(-eps,eps);
 	}
 	point<T> intersect(const line<T> &ls)
 	{
@@ -160,3 +161,17 @@ class l_segment
 		return l.dist(p);
 	}
 };
+bool ispoint_in_polygon(vector<point<long double> > pol, point<long double> p)
+{
+	bool in=false;
+	l_segment<long double> ll(p,point<long double>(MAX,p.y));
+	for(int i=0;i<pol.size();i++)
+	{
+		l_segment<long double> ls(pol[i],pol[(i+1)%pol.size()]);
+		if(ls.on_segment(p))
+			return true;
+		if(!(ls.intersect(ll)==point<long double>(-eps,eps)))
+			in^=true;
+	}
+	return in;
+}
