@@ -65,13 +65,13 @@ class persistent_tree
 	}
 	void update(int rt,int l,int r, int id, int z)
 	{
-		if(rt>=roots.size())
+		if(rt>roots.size())
 			return;
 		roots.push_back(update(roots[rt],l,r,id,z));
 	}
 	data query(int rt,int l,int r,int x,int y)
 	{
-		if(rt>=roots.size())
+		if(rt>roots.size())
 		{
 			data grbg;//set garbage
 			return grbg;
