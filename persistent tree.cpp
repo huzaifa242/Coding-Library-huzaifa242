@@ -1,17 +1,30 @@
+//When using for Tree label vertices in order of visit
+//Don't just depend on parent it gives WA
 struct data
 {
 	data *left,*right;
-	data()
+	int val;
+	data(int v)
 	{
 		left=NULL;
 		right=NULL;
-		//other init
+		//inits
+		val=v;
 	}
 	data(data* l, data* r)
 	{
-		left=l;
-		right=r;
+		val=0;
 		//merge logic
+		if(l!=NULL)
+		{
+			left=l;
+			val+=left->val;
+		}
+		if(r!=NULL)
+		{
+			right=r;
+			val+=right->val;
+		}
 	}
 };
 class persistent_tree
@@ -21,7 +34,7 @@ class persistent_tree
 	vector<data*> roots;
 	data* build(int a[],int l, int r)
 	{
-		if(r>l)
+		if(l>r)
 			return NULL;
 		if(l==r)
 		{
@@ -32,10 +45,11 @@ class persistent_tree
 	}
 	data* update(data* node, int l, int r, int id, int z)
 	{
-		if(r>l)
+		if(l>r)
 			return NULL;
 		if(l==r)
 		{
+			//Do correct update here
 			return new data(z);
 		}
 		int m=(l+r)/2;
@@ -46,7 +60,7 @@ class persistent_tree
 	}
 	data* query(data* node, int l, int r, int x, int y)
 	{
-		if(r>l || x>r || y<l)
+		if(l>r || x>r || y<l)
 			return NULL;
 		if(l>=x && r<=y)
 			return node;
@@ -71,7 +85,7 @@ class persistent_tree
 	}
 	data query(int rt,int l,int r,int x,int y)
 	{
-		if(rt>roots.size())
+		if(rt>=roots.size())
 		{
 			data grbg;//set garbage
 			return grbg;
