@@ -112,7 +112,7 @@ class point
 		return r;
 	}
 
-	:ostream& operator<<(std::ostream &out, const point &p)
+	ostream& operator<<(std::ostream &out, const point &p)
 	{ return out << "(" << (fabs(p.x) < EPS ? 0 : p.x) << ","
 		<< (fabs(p.y) < EPS ? 0 : p.y) << ")"; }
 };
