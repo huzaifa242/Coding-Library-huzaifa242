@@ -3,7 +3,6 @@
 #include<bits/stdc++.h>
 using namespace __gnu_pbds;
 using namespace std;
-
 typedef tree<
 int,
 null_type,
@@ -12,21 +11,17 @@ rb_tree_tag,
 tree_order_statistics_node_update>
 statistic_tree;
 
-signed main()
-{
+signed main(){
 	statistic_tree st;
 	st.insert(5); 
 	st.insert(2); 
 	st.insert(6); 
 	st.insert(4);
 	st.insert(8);
-	
 	cout<<"All elements\n";
 	for(auto u:st)
 	cout<<u<<" ";
-	cout<<endl;
-
-	
+	cout<<endl;	
 	// Remember that element itslef is included in upper_bound 
 	// so for strictly less do order_of_key.
 	

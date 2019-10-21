@@ -5,8 +5,7 @@
 int dp[MAX][2][];
 vector<int> digi;
 
-int call(int id, int ls, int sm)
-{
+int call(int id, int ls, int sm){
 	// failure of count condition
 	if(sm> ) 
 		return 0;
@@ -17,26 +16,21 @@ int call(int id, int ls, int sm)
 	if(dp[id][ls][sm]!=-1)
 		return dp[id][ls][sm];
 	int dans=0;
-	if(!ls)
-	{
+	if(!ls){
 		for(int i=0;i<=digi[id];i++)
-		dans+=call(id+1,ls|(i<digi[id]),sm+(i>0));
-	}
-	else
-	{
+			dans+=call(id+1,ls|(i<digi[id]),sm+(i>0));
+	}else{
 		for(int i=0;i<=9;i++)
-		dans+=call(id+1,ls,sm+(i>0));	
+			dans+=call(id+1,ls,sm+(i>0));	
 	}
 	return dp[id][ls][sm]=dans;
 }
 
-int solve(int z)
-{
+int solve(int z){
 	digi.clear();
 	memset(dp,-1,sizeof(dp));	
 	int sm=0;
-	while(z)
-	{
+	while(z){
 		digi.push_back(z%10LL);
 		z/=10LL;
 	}

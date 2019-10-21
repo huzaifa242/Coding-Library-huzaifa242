@@ -3,26 +3,23 @@
 //Returns a list of points on the convex hull in counter-clockwise order.
 typedef pair<int,int> point;
 
-int cross(point &a, point &b, point &c)
-{
+int cross(point &a, point &b, point &c){
 	return a.x*(b.y-c.y) + b.x*(c.y-a.y) + c.x*(a.y-b.y);
 }
 
-vector<point> convex_hull(vector<point> &p)
-{
+vector<point> convex_hull(vector<point> &p){
 	int n=p.size(),k=0,i,j;
 	if(n<=3)
 		return p;
 	vector<point> hull(2*n);
 	sort(p.begin(),p.end());
-	for(i=0;i<n;i++)
-	{
+	for(i=0;i<n;i++){
 		while(k>=2 && cross(hull[k-2],hull[k-1],p[i])<=0)
 			k--;
 		hull[k++]=p[i];
 	}
-	for(i=n-1,j=k+1;i>0;i--)
-	{	while(k>=j && cross(hull[k-2],hull[k-1],p[i-1])<=0)
+	for(i=n-1,j=k+1;i>0;i--){
+		while(k>=j && cross(hull[k-2],hull[k-1],p[i-1])<=0)
 			k--;
 		hull[k++]=p[i-1];
 	}

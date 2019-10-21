@@ -3,8 +3,7 @@ import java.util.*;
 import java.math.*;
 import java.text.*;
 
-public class class_name
-{
+public class class_name{
 	private boolean ONLINE_JUDGE=System.getProperty("ONLINE_JUDGE") != null;
 	private boolean INTERACTIVE=false,TESTCASES=false;
 	private int MAX=100005;
@@ -13,12 +12,11 @@ public class class_name
 	private long LLONG_MAX=Long.MAX_VALUE,LLONG_MIN=Long.MIN_VALUE;
 	Reader cin;Writer cout;
 
-	void preprocess() throws Exception
-	{/*Preprocess Here!!*/}
-	void solve(int tc) throws Exception
-	{/*code goes here!!*/}
-	void run() throws Exception
-	{
+	void preprocess() throws Exception{
+	/*Preprocess Here!!*/}
+	void solve(int tc) throws Exception{
+	/*code goes here!!*/}
+	void run() throws Exception{
 		cin=!ONLINE_JUDGE || INTERACTIVE? new Reader("input.txt"):new Reader();
 		cout=!ONLINE_JUDGE || INTERACTIVE? new Writer("output.txt"):new Writer();
 		preprocess();
@@ -29,23 +27,22 @@ public class class_name
 	}
 	public static void main(String[] args) throws Exception
 	{new class_name().run();}
-	class Reader
-	{
+	class Reader{
 		BufferedReader br;StringTokenizer st;
 		public Reader()
 		{br = new BufferedReader(
 			new InputStreamReader(System.in));}
 		public Reader(String f) throws Exception
 		{br = new BufferedReader(new FileReader(f));}
-		String get() throws Exception
-		{	while (st == null || !st.hasMoreElements())
+		String get() throws Exception{	
+			while (st == null || !st.hasMoreElements())
 			{try{st =new StringTokenizer(br.readLine());}
 			catch (IOException  e){
 			throw new Exception(e.toString());}}
 			return st.nextToken();
 		}
-		String getline() throws Exception
-		{	String str = "";
+		String getline() throws Exception{	
+			String str = "";
 			try{str = br.readLine();}
 			catch (IOException e){
 			throw new Exception(e.toString());}  
@@ -62,8 +59,7 @@ public class class_name
 		BigDecimal getbigdouble() throws Exception
 		{return new BigDecimal(get());}
 	}
-	class Writer
-	{
+	class Writer{
 		PrintWriter pr;
 		public Writer()
 		{pr=new PrintWriter(System.out);}

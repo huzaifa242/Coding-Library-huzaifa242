@@ -1,48 +1,39 @@
 //Usage prim(source). mst holds new tree
 // adjlst stores <weight,node>
-vector<pair<int,int> > adjlst[MAX],mst[MAX];
-int par[MAX],vis[MAX],n,m;
+vector<pair<int,int> > adjlst[MAX],mst[MAX],par,vis;
+int n,m;
 int dst[MAX];
 vector<int> path;
-int prim(int u)
-{
+int prim(int u){
 	int i;
-	memset(par,0,sizeof(par));
-	for(i=0;i<MAX;i++)
-	{
+	par.assign(n+1,0);
+	vis.assign(n+1,0);
+	for(i=0;i<=n;i++){
 		dst[i]=LLONG_MAX;
 		mst[i].clear();
 	}
-	memset(vis,0,sizeof(vis));
 	int sm=0;
 	priority_queue<pair<int,int>, vector<pair<int,int> >, greater<pair<int,int> > > pq;
 	pq.push(make_pair(0LL,u));
 	par[u]=u;
 	dst[u]=0;
-	while(!pq.empty())
-	{
-		pair<int,int> pp=pq.top();
+	while(!pq.empty()){
+		auto pp=pq.top();
 		pq.pop();
-		if(!vis[pp.y])
-		{
+		if(!vis[pp.y]){
 			vis[pp.y]=1;
 			sm+=pp.x;
-			for(i=0;i<adjlst[pp.y].size();i++)
-			{
-				pair<int,int> v=adjlst[pp.y][i];
-				if(dst[v.y]>v.x && vis[v.y]==0)
-				{
+			for(auto v:adjlst[pp.y]){
+				if(dst[v.y]>v.x && vis[v.y]==0){
 					dst[v.y]=v.x;
 					par[v.y]=pp.y;
-					pq.push(make_pair(dst[v.y],v.y));
+					pq.push({dst[v.y],v.y});
 				}
 			}
 		}
 	}
-	for(i=1;i<=n;i++)
-	{
-		if(par[i]!=i)
-		{
+	for(i=1;i<=n;i++){
+		if(par[i]!=i){
 			mst[i].push_back({dst[i],par[i]});
 			mst[par[i]].push_back({dst[i],i});
 		}

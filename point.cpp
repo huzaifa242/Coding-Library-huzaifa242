@@ -15,8 +15,7 @@ bool EQ(double a, double b)
 bool LT(double a, double b)
 { return a<b-eps; }
 
-class point
-{
+class point{
 	public:
 	double x,y;
 	point() : x(0), y(0) {}
@@ -102,8 +101,7 @@ class point
 	{ return point(2*p.x-x,2*p.y-y); }
 
 	//returns (x,y) reflected along line passing through P and Q
-	point reflect(const point &p, const point &q)
-	{
+	point reflect(const point &p, const point &q){
 		if(p==q)
 			return reflect(p);
 		point r=(*this-p),s=q-p;

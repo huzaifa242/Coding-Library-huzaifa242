@@ -18,12 +18,11 @@
 	}
 */
 //Usage dsu d1(x)
-class dsu
-{
+class dsu{
 	private:
+	vector<int> par,sz;
 	int par[MAX],sz[MAX];
-	void find_par(int u)
-	{
+	void find_par(int u){
 		if(par[par[u]]==u)
 		return;
 		find_par(par[u]);
@@ -31,29 +30,26 @@ class dsu
 	}
 	public:
 	int connected;
-	dsu(){}
-	dsu(int n)
-	{
-		for(int i=0;i<=n;i++)
-		{
-			par[i]=i;
-			sz[i]=1;
-		}
+	dsu(){
+		par.resize(MAX);
+		sz.assign(MAX,1);
+		iota(par.begin(),pr.end(),0);
+		connected=MAX;
+	}
+	dsu(int n){
+		par.resize(n+1);
+		sz.assign(n+1,1);
+		iota(par.begin(),pr.end(),0);
 		connected=n;
 	}
-	int get_par(int u)
-	{
+	int get_par(int u){
 		find_par(u);
 		return par[u];
 	}
 	int get_size(int u)
-	{
-		return sz[get_par(u)];
-	}
-	void union_all(int u, int v)
-	{
-		if(get_par(u)!=get_par(v))
-		{
+	{ return sz[get_par(u)];}
+	void union_all(int u, int v){
+		if(get_par(u)!=get_par(v)){
 			connected--;
 			sz[par[u]]+=sz[par[par[v]]];
 			sz[par[par[v]]]=0;

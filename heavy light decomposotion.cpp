@@ -5,8 +5,7 @@
 //then put segment tree or other datastructure
 //then continue from below;
 int sbsz[MAX];
-class heavylight_decomposition
-{
+class heavylight_decomposition{
 	private:
 	//chid is starting element of chain
 	int chid[MAX],sid[MAX],sar[MAX],itr,root;
@@ -14,51 +13,41 @@ class heavylight_decomposition
 	vector<int> chn[MAX];
 	// Segment tree or any other data structure
 	segment_tree t1;
-	void calc_sar()
-	{
+	void calc_sar(){
 		/*------------Fill this----------*/
 	}
-	void getsize(int x,int p)
-	{
-		sbsz[x]=1;
-		for(auto u:adjlst[x])
-		if(u!=p)
-		{
-			getsize(u,x);
-			sbsz[x]+=sbsz[u];
+	void getsize(int u,int p){
+		sbsz[u]=1;
+		for(auto v:adjlst[u]){
+			if(v!=p){
+				getsize(v,u);
+				sbsz[u]+=sbsz[v];
+			}
 		}
 	}
-	void decompose(int x,int p,int id)
-	{
-		sid[x]=itr++;
-		chn[id].push_back(x);
-		chid[x]=id;
+	void decompose(int u,int p,int id){
+		sid[u]=itr++;
+		chn[id].push_back(u);
+		chid[u]=id;
 		int bigc=-1,mx=-1;
-		for(auto u:adjlst[x])
-		{
-			if(u!=p && mx<sbsz[u])
-			{
-				mx=sbsz[u];
-				bigc=u;
+		for(auto v:adjlst[u]){
+			if(v!=p && mx<sbsz[v]){
+				mx=sbsz[v];
+				bigc=v;
 			}
 		}
 		if(bigc!=-1)
-		decompose(bigc,x,id);
-		for(auto u:adjlst[x])
-		{
-			if(u!=p && bigc!=u)
-			decompose(u,x,u);
-		}
+			decompose(bigc,u,id);
+		for(auto v:adjlst[u])
+			if(v!=p && bigc!=v)
+				decompose(v,u,v);
 	}
 	//v is ancestor of u
-	int query_up(int u,int v)
-	{
+	int query_up(int u,int v){
 		//assign proper value
 		int ans;
-		while(u)//make it u!=v for edge calculation stuff
-		{
-			if(chid[u]==chid[v])
-			{
+		while(u){//make it u!=v for edge calculation stuff
+			if(chid[u]==chid[v]){
 				//both u and v are in same chain
 				ans=max(ans,t1.query(1,1,n,sid[v],sid[u]));
 				return ans;//remove this for edge calculation stuff
@@ -69,12 +58,9 @@ class heavylight_decomposition
 		return ans;
 	}
 	//v is ancestor of u
-	void update_up(int u,int v,int val)
-	{
-		while(u!=v)
-		{
-			if(chid[u]==chid[v])
-			{
+	void update_up(int u,int v,int val){
+		while(u!=v){
+			if(chid[u]==chid[v]){
 				//both u and v are in same chain
 				t1.updateRange(1,sar,1,n,sid[v],sid[u],val);
 			}
@@ -85,8 +71,7 @@ class heavylight_decomposition
 	}
 	public:
 	//modify constructor as per data structure
-	heavylight_decomposition(auto mrg,int root=1)
-	{
+	heavylight_decomposition(auto mrg,int root=1){
 		t1=segment_tree(mrg);
 		itr=1;
 		getsize(root,0);
@@ -97,21 +82,18 @@ class heavylight_decomposition
 		//Build tree
 		t1.build(1,sar,1,n);
 	}
-	int query(int u,int v)
-	{
+	int query(int u,int v){
 		int luv=lca(u,v);
 		int pu=query_up(u,luv);
 		int pv=query_up(v,luv);
 		return max(pu,pv);
 	}
 	//Point Update 
-	void update(int u,int val)
-	{
+	void update(int u,int val){
 		t1.update(1,sar,1,n,u,val);
 	}
 	//Range Update
-	void updateRange(int u,int v,int val)
-	{
+	void updateRange(int u,int v,int val){
 		int luv=lca(u,v);
 		update_up(u,luv,val);
 		update_up(v,luv,val);

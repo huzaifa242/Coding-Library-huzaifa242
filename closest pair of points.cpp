@@ -1,55 +1,43 @@
 //Usage find_closest()
 //dst has square of minimum distance
 //best has the id of closest pair of points
-struct point
-{
+struct point{
 	int x,y,id;
-
 	point operator -(point a)
-	{
-		return {x-a.x,y-a.y};
-	}
+	{ return {x-a.x,y-a.y}; }
 	int distance()
-	{
-		return x*x+y*y;
-	}
+	{ return x*x+y*y;}
 };
 
 vector<point> pt;
 int dst;
 pair<int,int> best;
 
-void comp_ans(point u,point v)
-{
-	if((u-v).distance()<dst)
-	{
+void comp_ans(point u,point v){
+	if((u-v).distance()<dst){
 		dst=(u-v).distance();
 		best={u.id,v.id};
 	}
 }
 
-void closest_points(int l,int r)
-{
+void closest_points(int l,int r){
 	if(l>=r)
-	return;
+		return;
 	int m=(l+r)/2LL;
 	closest_points(l,m);
 	closest_points(m+1,r);
 	int i,j;
 	vector<point> tp;
-	for(i=l;i<=r;i++)
-	{
-		if(point{pt[i].x-pt[m].x,0}.distance()<dst)
-		{
+	for(i=l;i<=r;i++){
+		if(point{pt[i].x-pt[m].x,0}.distance()<dst){
 			for(j=(int)tp.size()-1;j>=0 && point{0,pt[i].y-tp[j].y}.distance()<dst; j--)
-			comp_ans(pt[i],tp[j]);
+				comp_ans(pt[i],tp[j]);
 			tp.push_back(pt[i]);
 		}
 	}
 }
 
-void find_closest()
-{
+void find_closest(){
 	dst=LLONG_MAX;
 	best={-1,-1};
 	auto by_x=[](point u,point v)
@@ -70,6 +58,4 @@ void find_closest()
 //atan2(y,x) gives the angle from positive x-axis
 //handle negative angles carefully
 auto polarangle=[&](point a,point b,point c)
-{	
-	return atan2(b.y-a.y,b.x-a.x)<atan2(c.y-a.y,c.x-a,x);
-};
+{return atan2(b.y-a.y,b.x-a.x)<atan2(c.y-a.y,c.x-a,x);};

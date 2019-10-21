@@ -2,23 +2,17 @@
 int cost[MAX][MAX],n;
 int dp[1<<MAX][MAX];
 int ord[MAX];
-int hamiltonian()
-{
+int hamiltonian(){
 	int i,j,mask;
 	memset(dp,INT_MAX,sizeof(dp));
 	//Base
 	for(i=0;i<n;i++)
-	dp[1<<i][i]=0;
-	for(mask=1;mask<(1<<n);mask+=2)
-	{
-		for(i=1;i<n;i++)
-		{
-			if(mask & (1<<i))
-			{
-				for(j=0;j<n;j++)
-				{
-					if(mask & (1<<j))
-					{
+		dp[1<<i][i]=0;
+	for(mask=1;mask<(1<<n);mask+=2){
+		for(i=1;i<n;i++){
+			if(mask & (1<<i)){
+				for(j=0;j<n;j++){
+					if(mask & (1<<j)){
 						//Recurrence
 						dp[mask][i]=min(dp[mask][i],dp[mask^(1<<i)][j]+cost[j][i]);
 					}
@@ -33,13 +27,12 @@ int hamiltonian()
 		cst=min(cst,dp[mask][i]);
 	//Reconstruct Order
 	int prv=-1;
-	for(i=n-1;i>=0;i--)
-	{
+	for(i=n-1;i>=0;i--){
 		int tpr=-1;
-		for(j=0;j<n;j++)
-		{
-			if((mask &(1<<j)) && (tpr==-1) || dp[mask][tpr]+(prv==-1?0:cost[prv][old]) > 
-											dp[mask][j]+(prv==-1?0:cost[j][old]))
+		for(j=0;j<n;j++){
+			if((mask &(1<<j)) && (tpr==-1) || 
+				dp[mask][tpr]+(prv==-1?0:cost[prv][old]) > 
+				dp[mask][j]+(prv==-1?0:cost[j][old]))
 				tpr=j;
 		}
 		ord[i]=tpr;

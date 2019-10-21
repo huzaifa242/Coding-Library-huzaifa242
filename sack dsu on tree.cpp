@@ -8,54 +8,45 @@
 vector<int> adjlst[MAX];
 int n,cnt[MAX],big[MAX],sbsz[MAX]={0},col[MAX];
 
-void getsize(int x,int p)
-{
-	sbsz[x]=1;
-	for(auto u:adjlst[x])
-	if(u!=p)
-	{
-		getsize(u,x);
-		sbsz[x]+=sbsz[u];
-	}
+void getsize(int u,int p){
+	sbsz[u]=1;
+	for(auto v:adjlst[u])
+		if(v!=p){
+			getsize(v,u);
+			sbsz[u]+=sbsz[v];
+		}
 }
 
-void add(int x,int p,int vl)
-{
-	cnt[col[x]]+=vl;
-	for(auto u:adjlst[x])
-	if(u!=p && !big[u])
-	add(u,x,vl);
+void add(int u,int p,int vl){
+	cnt[col[u]]+=vl;
+	for(auto v:adjlst[u])
+		if(v!=p && !big[v])
+			add(v,u,vl);
 }
 
-void sack(int x,int p,bool kp)
-{
+void sack(int u,int p,bool kp){
 	int bigc=-1,mx=-1;
-	for(auto u:adjlst[x])
-	{
-		if(u!=p && mx<sbsz[u])
-		{
-			mx=sbsz[u];
-			bigc=u;
+	for(auto v:adjlst[u]){
+		if(v!=p && mx<sbsz[v]){
+			mx=sbsz[v];
+			bigc=v;
 		}
 	}
-	for(auto u:adjlst[x])
-	{
-		if(u!=p && bigc!=u)
-		sack(u,x,0);
-	}
-	if(bigc!=-1)
-	{
-		sack(bigc,x,1);
+	for(auto v:adjlst[u])
+		if(v!=p && bigc!=v)
+			sack(v,u,0);
+	if(bigc!=-1){
+		sack(bigc,u,1);
 		big[bigc]=1;
 	}
-	add(x,p,1);
+	add(u,p,1);
 	
 	//Now cnt has the value for subtree of x
 	// so now compute answer
 
 	if(bigc!=-1)
-	big[bigc]=0;
+		big[bigc]=0;
 	
 	if(!kp)
-	add(x,p,-1);
+		add(u,p,-1);
 }

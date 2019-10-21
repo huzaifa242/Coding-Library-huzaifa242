@@ -1,28 +1,24 @@
 //Usage min_edit(a,b,in,rm,sb);
 //ci-insertion, cr=deletion, cs-substition
 int cr,ci,cs,min_dp[MAX][MAX];
-int conv_atob(string &a,string &b)
-{
+int conv_atob(string &a,string &b){
 	int i,j;
 	memset(min_dp,-1,sizeof(min_dp));
-	for(i=0;i<=a.size();i++)
-	{
-		for(j=0;j<=b.size();j++)
-		{
+	for(i=0;i<=a.size();i++){
+		for(j=0;j<=b.size();j++){
 			if(i==0)
-			min_dp[i][j]=(j*ci);
+				min_dp[i][j]=(j*ci);
 			else if(j==0)
-			min_dp[i][j]=(i*cr);
+				min_dp[i][j]=(i*cr);
 			else if(a[i-1]==b[j-1])
-			min_dp[i][j]=min_dp[i-1][j-1];
+				min_dp[i][j]=min_dp[i-1][j-1];
 			else
-			min_dp[i][j]=min(min_dp[i][j-1]+ci,min(min_dp[i-1][j]+cr,min_dp[i-1][j-1]+cs));
+				min_dp[i][j]=min(min_dp[i][j-1]+ci,min(min_dp[i-1][j]+cr,min_dp[i-1][j-1]+cs));
 		}
 	}
 	return min_dp[a.size()][b.size()];
 }
-int min_edit(string &a,string &b, int ins=1, int rmv=1,int sub=2)
-{
+int min_edit(string &a,string &b, int ins=1, int rmv=1,int sub=2){
 	ci=ins;
 	cr=rmv;
 	cs=sub;
@@ -31,38 +27,33 @@ int min_edit(string &a,string &b, int ins=1, int rmv=1,int sub=2)
 //---------------------------------------------------------
 //Usage same as above just use for case resticted where 
 // cost cannot increase k
-int cr,ci,cs,mdpp[MAX],mdps[MAX];
-{
+int cr,ci,cs,mdpp[MAX],mdps[MAX];{
 	memset(mdpp,0,sizeof(mdpp));
 	memset(mdps,0,sizeof(mdps));
 	int i,j,n=a.size(),m=b.size();
 	if(ci==0 && cr==0)
 	return 0;
-	if(n<m)
-	{
+	if(n<m){
 		if((m-n)>k/ci)
 		return -1;
 	}
-	if(m<n)
-	{
+	if(m<n){
 		if((n-m)>k/cr)
 		return -1;
 	}
 	for(i=1;i<=m;i++)
-	mdpp[i]=ci*i;
-	for(i=1;i<=n;i++)
-	{
+		mdpp[i]=ci*i;
+	for(i=1;i<=n;i++){
 		mdps[0]=ci*i;
-		for(j=max(1,i-k);j<=min(m,i+k);j++)
-		{
+		for(j=max(1,i-k);j<=min(m,i+k);j++){
 			if(a[i-1]==b[j-1])
-			mdps[j]=mdpp[j-1];
+				mdps[j]=mdpp[j-1];
 			else if(j==max(1,i-k))
-			mdps[j]=min(mdpp[j-1]+cs,mdpp[j]+cr);
+				mdps[j]=min(mdpp[j-1]+cs,mdpp[j]+cr);
 			else if(j==min(m,i+k))
-			mdps[j]=min(mdpp[j-1]+cs,mdps[j-1]+ci);
+				mdps[j]=min(mdpp[j-1]+cs,mdps[j-1]+ci);
 			else
-			mdps[j]=min(mdpp[j-1]+cs,min(mdpp[j]+cr,mdps[j-1]+ci));
+				mdps[j]=min(mdpp[j-1]+cs,min(mdpp[j]+cr,mdps[j-1]+ci));
 		}
 		for(j=max(1,i-k);j<=min(m,i+k);j++)
 		mdpp[j]=mdps[j];
@@ -70,8 +61,7 @@ int cr,ci,cs,mdpp[MAX],mdps[MAX];
 	}
 	return mdps[m]>k?-1:mdps[m];
 }
-int min_edit(string &a,string &b, int ins=1, int rmv=1,int sub=2,int k=5*MAX)
-{
+int min_edit(string &a,string &b, int ins=1, int rmv=1,int sub=2,int k=5*MAX){
 	ci=ins;
 	cr=rmv;
 	cs=sub;

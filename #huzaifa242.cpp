@@ -35,20 +35,20 @@ ostream& operator << (ostream& out, const pair<T,G> &a)
 
 template <typename T>
 ostream& operator << (ostream& out, const vector<T> &a) 
-{out<<"[";for(const auto &i:a)out<<i<<" , ";return out<<"]";}
+{out<<"[";for(const auto &i:a)out<<i<<" , ";return out<<"]"<<endl;}
 
 template <typename T>
 ostream& operator << (ostream& out, const set<T> &a) 
-{out<<"{";for(const auto &i:a)out<<i<<" , ";return out<<"}";}
+{out<<"{";for(const auto &i:a)out<<i<<" , ";return out<<"}"<<endl;}
 
 template <typename T,typename G>
 ostream& operator << (ostream& out, const map<T,G> &a) 
-{out<<"<";for(const auto &i:a)out<<i<<" , ";return out<<">";}
+{out<<"<";for(const auto &i:a)out<<i<<" , ";return out<<">"<<endl;}
 
 template<typename T, size_t N>
 typename enable_if<!is_same<typename remove_cv<T>::type, char>::value,
 ostream&>::type operator<<(ostream& out, T(&a)[N])
-{out<<'[';for(size_t i=0;i<N;++i)out<<a[i]<<" , ";out << ']';return out;}
+{out<<'[';for(size_t i=0;i<N;++i)out<<a[i]<<" , ";out <<"]"<<endl;return out;}
 
 signed main(){
 	ios_base::sync_with_stdio(false);
