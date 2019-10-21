@@ -50,8 +50,7 @@ typename enable_if<!is_same<typename remove_cv<T>::type, char>::value,
 ostream&>::type operator<<(ostream& out, T(&a)[N])
 {out<<'[';for(size_t i=0;i<N;++i)out<<a[i]<<" , ";out << ']';return out;}
 
-signed main()
-{
+signed main(){
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);cout.tie(NULL);
 	#ifndef ONLINE_JUDGE

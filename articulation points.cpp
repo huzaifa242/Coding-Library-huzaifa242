@@ -1,49 +1,42 @@
 //usage articulation_points(). 
 //arti[i] denotes wheather the node is AP 
 //artpt is list of all nodes that are AP
-vector<int> adjlst[MAX],artpt;
-int n,vis[MAX],tin[MAX],low[MAX],ptr;
-bool arti[MAX];
-void arti_dfs(int x, int pr)
-{
-	vis[x]=1;
-	tin[x]=ptr;
-	low[x]=ptr;
+vector<int> adjlst[MAX],artpt,vis,tin,low;
+vector<bool> arti;
+int n,ptr;
+void arti_dfs(int u, int p){
+	vis[u]=1;
+	tin[u]=ptr;
+	low[u]=ptr;
 	ptr++;
 	int kf=0;
-	for(int i=0;i<adjlst[x].size();i++)
-	{
-		int v=adjlst[x][i];
-		if(v==pr)continue;
+	for(auto v:adjlst[u]){
+		if(v==p)continue;
 		else if(vis[v])
-		low[x]=min(low[x],tin[v]);
-		else
-		{
-			arti_dfs(v,x);
-			low[x]=min(low[x],low[v]);
-			if(low[v]>=tin[x] && pr!=0)
-			{
-				if(!arti[x])
-				artpt.push_back(x);
-				arti[x]=true;
+		low[u]=min(low[u],tin[v]);
+		else{
+			arti_dfs(v,u);
+			low[u]=min(low[u],low[v]);
+			if(low[v]>=tin[u] && p!=0){
+				if(!arti[u])
+				artpt.push_back(u);
+				arti[u]=true;
 			}
 			kf++;
 		}
 	}
-	if(pr==0 && kf>1)
-	{
-		if(!arti[x])
-		artpt.push_back(x);
-		arti[x]=true;
+	if(p==0 && kf>1){
+		if(!arti[u])
+		artpt.push_back(u);
+		arti[u]=true;
 	}
 }
-void articulation_points()
-{
+void articulation_points(){
 	ptr=0;
-	memset(vis,0,sizeof(vis));
-	memset(tin,0,sizeof(tin));
-	memset(low,0,sizeof(low));
-	memset(arti,0,sizeof(arti));
+	vis.assign(n+1,0);
+	tin.assign(n+1,0);
+	arti.assign(n+1,0);
+	low.assign(n+1,0);
 	artpt.clear();
 	for(int i=1;i<=n;i++)
 	if(!vis[i])
