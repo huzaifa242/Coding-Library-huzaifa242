@@ -1,5 +1,5 @@
 class SuffixAutomata{
-	const int alpha=130;
+	const int alpha=131;
 	public:
 	int sz,last;
 	vector<int> link,len;
