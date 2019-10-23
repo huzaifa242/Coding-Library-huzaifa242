@@ -8,7 +8,7 @@ class Mo{
 	int blk;
 	class Query{
 		public:
-		mutable int l,r,id,od,lb,rb;
+		mutable int l,r,tim,id,od,lb,rb;
 		private:
 		const int rot_delta[4]={3,0,0,1};
 		int hilbert_curve(int u,int v,int pw,int rot){
@@ -28,10 +28,11 @@ class Mo{
 		}
 		public:
 		Query(){}
-		Query(int _l,int _r,int _id){
+		Query(int _l,int _r,int _id, int _tim){
 			l=_l;
 			r=_r;
 			id=_id;
+			tim=_tim;
 			lb=l/blk;
 			rb=r/blk;
 			od=hilbert_curve(l,r,21,0);
@@ -41,6 +42,7 @@ class Mo{
 			r=qq.r;
 			id=qq.id;
 			od=qq.od;
+			tim=qq.tim;
 			lb=qq.lb;
 			rb=qq.rb;
 		}
