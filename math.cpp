@@ -102,6 +102,7 @@ void ncomr(){
 	}
 }
 //Primality Test take power Funtion
+//needs pwr(a,n),multi(a,b) and sieve()
 bool miller(int d,int n){
 	int a = rnd(1LL,n);
 	int x=pwr(a,d,n); 
@@ -129,4 +130,29 @@ bool prime_chk(int n){
 		if(!miller(pp2,n))
 			return false;
 	return true;
+}
+//Count all Divisors of n O(n^(1/3))
+//needs prime_chk and miller
+int count_div(int n){
+	int sm=1,i;
+	int nn=n,p2=1;
+	for(i=0;i<prime.size();i++){
+		int p=prime[i];
+		if(p*p*p > n)
+			break;
+		int t=1;
+		while(n%p==0){
+			n/=p;
+			t++;
+		}
+		sm*=t;
+	}
+	int sq=sqrt(n);
+	if(prime_chk(n))
+		sm*=2LL;
+	else if(sq*sq==n && prime_chk(sq))
+		sm*=3LL;
+	else if(n!=1)
+		sm*=4LL;
+	return sm;
 }
