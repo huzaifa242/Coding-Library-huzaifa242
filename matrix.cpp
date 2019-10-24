@@ -11,7 +11,7 @@ class Matrix{
 		n=_n;m=_m;
 		a.assign(n,vector<int>(m,0));
 	}
-	Matrix operator * (Matrix b){
+	Matrix operator * (Matrix &b){
 		Matrix c(n,b.m);
 		if(m!=b.n)
 			return c;
@@ -22,7 +22,7 @@ class Matrix{
 		c.a[i][j]=md(c.a[i][j] + md(a[i][k]*b.a[k][j]));
 		return c;
 	}
-	ostream& operator << (ostream& out, const Matrix &c){
+	friend ostream& operator << (ostream& out, const Matrix &c){
 		for(auto i:c.a){
 			for(auto j:i)
 				out<<j<<" "
