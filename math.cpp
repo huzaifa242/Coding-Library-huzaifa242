@@ -3,7 +3,7 @@ const long double PI=acos(-1.0);
 //Multiply large Number num>=1e9 use Modulo
 //Power Function A raised to B use modulo
 //Modulo Inverse use modulo
-const int mod = 1000000007
+const int mod = 1000000007;
 int md(int x,int mdo=mod){
 	while(x<0)
 		x+=mdo;
@@ -103,16 +103,16 @@ void ncomr(){
 }
 //Primality Test take power Funtion
 bool miller(int d,int n){
-	int a = 2 + rand() % (n - 4);
+	int a = rnd(1LL,n);
 	int x=pwr(a,d,n); 
-	if(x==1 || x==n-1) 
+	if(x==1LL || x==n-1LL) 
 	   return true; 
-	while(d!=n-1){ 
-		x=(x*x)%n; 
-		d*=2; 
-		if(x==1)
+	while(d!=n-1LL){ 
+		x=multi(x,x,n); 
+		d*=2LL; 
+		if(x==1LL)
 			return false; 
-		if(x==n-1)
+		if(x==n-1LL)
 			return true; 
 	} 
 	return false; 
@@ -120,10 +120,12 @@ bool miller(int d,int n){
 bool prime_chk(int n){
 	if(n<MAX)
 		return isprime[n]==n;
-	int pp2=n-1;
-	while(pp2%2==0)
-		pp2/=2;
-	for(int i=0;i<20;i++)
+	if(n%3LL==0||n%5LL==0||n%2LL==0)
+		return false;
+	int pp2=n-1LL;
+	while(pp2%2LL==0)
+		pp2/=2LL;
+	for(int i=0;i<4;i++)
 		if(!miller(pp2,n))
 			return false;
 	return true;
