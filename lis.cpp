@@ -1,26 +1,48 @@
-//Usage lis(); 
-int a[MAX],ls[MAX],n;
-int repl_pos(int l,int r,int x){
-	int ans=r,m;
-	while(l<=r){
-		m=(l+r)/2;
-		if(ls[m]>=x){//for repeated allowed change here also
-			r=m-1;
-			ans=m;
-		}else
-			l=m+1;
-	}
-	return ans;
-}
+//Usage lis();
+//a has to be 1 based index
+//number of elements in longest increasing subsequence = total number of different non-increasing subsequence 
+//number of elements in longest decreasing subsequence = total number of different non-decreasing subsequence 
+//above two facts are used vice-versa
+int inf=2e9,n;
+vector<int> a,ls,ind,par,seq;
 int lis(){
-	ls.assign(n+1,0);
-	int i,lisp=1;
-	ls[0]=a[0];
-	for(i=1;i<n;i++){
-		if(a[i]>ls[lisp-1])//for repeated allowed change here also
-			ls[lisp++]=a[i];
-		else
-			ls[repl_pos(0,lisp-1,a[i])]=a[i];
+	//change initialization of ls
+	//for non/- incresing/decreasing seq
+	ls.assign(n+1,inf);
+	ind.assign(n+1,0);
+	par.assign(n+1,0);
+	ls[0]=-inf;
+	int i,ans=1;
+	for(i=1;i<=n;i++){
+		int l=1,r=n,pos;
+		while(l<=r){
+			int m=(l+r)/2;
+			//change below for all modification
+			//of non/- incresing/decreasing seq
+			if(ls[m]>a[i]){
+				pos=m;
+				r=m-1;
+			}else
+				l=m+1;
+		}
+		//change below for all modification
+		//of non/- incresing/decreasing seq
+		if(ls[pos-1]<a[i] && a[i]<ls[pos]){
+			ls[pos]=a[i];
+			ind[pos]=i;
+			par[i]=ind[pos-1];
+			ans=max(ans,pos);
+		}
 	}
-	return lisp;
+	if(ans==1){
+		seq.push_back(a[1]);
+		return 1;
+	}
+	i=ind[ans];
+	while(i){
+		seq.push_back(a[i]);
+		i=par[i];
+	}
+	reverse(seq.begin(),seq.end());
+	return ans;
 }
