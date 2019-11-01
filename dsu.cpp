@@ -21,7 +21,6 @@
 class dsu{
 	private:
 	vector<int> par,sz;
-	int par[MAX],sz[MAX];
 	void find_par(int u){
 		if(par[par[u]]==u)
 		return;
@@ -33,13 +32,13 @@ class dsu{
 	dsu(){
 		par.resize(MAX);
 		sz.assign(MAX,1);
-		iota(par.begin(),pr.end(),0);
+		iota(par.begin(),par.end(),0);
 		connected=MAX;
 	}
 	dsu(int n){
 		par.resize(n+1);
 		sz.assign(n+1,1);
-		iota(par.begin(),pr.end(),0);
+		iota(par.begin(),par.end(),0);
 		connected=n;
 	}
 	int get_par(int u){
