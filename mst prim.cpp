@@ -1,17 +1,14 @@
 //Usage prim(source). mst holds new tree
 // adjlst stores <weight,node>
-vector<pair<int,int> > adjlst[MAX],mst[MAX],par,vis;
+vector<pair<int,int> > adjlst[MAX],mst[MAX];
+vector<int> par,vis,dst;
 int n,m;
-int dst[MAX];
-vector<int> path;
 int prim(int u){
 	int i;
 	par.assign(n+1,0);
 	vis.assign(n+1,0);
-	for(i=0;i<=n;i++){
-		dst[i]=LLONG_MAX;
-		mst[i].clear();
-	}
+	dst.assign(n+1,LLONG_MAX);
+	mst.assign(n+1,vector<int>);
 	int sm=0;
 	priority_queue<pair<int,int>, vector<pair<int,int> >, greater<pair<int,int> > > pq;
 	pq.push(make_pair(0LL,u));
