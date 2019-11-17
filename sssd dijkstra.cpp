@@ -1,5 +1,6 @@
 //Usage dijkstra(source). get_path(source, any_node), ssst holds new tree
 // adjlst stores <weight,node>
+// for multi-source djikstra put all the sources in pq with dst=0
 vector<pair<int,int> > adjlst[MAX],ssst[MAX];
 int par[MAX],vis[MAX],n,m;
 int dst[MAX];
