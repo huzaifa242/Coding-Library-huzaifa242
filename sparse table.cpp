@@ -37,7 +37,7 @@ class sparse_table
 	}
 	data query(int l, int r){
 		int i=log2(r-l+1),j;
-		return min(sprs[l][i], sprs[r-(1<<i)+1][i]);//for O(1) relation use this
+		return merge(sprs[l][i], sprs[r-(1<<i)+1][i]);//for O(1) relation use this
 		//otherwise do log query using bits x=r-l+1
 		int sum = 0;
 		for (j=lgs-1;j>=0;j--){
