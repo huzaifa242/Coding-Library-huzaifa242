@@ -56,7 +56,7 @@ void debug_out(Head H, Tail... T)
 {cerr<<(H)<<" ";debug_out(T...);}
  
 #ifdef LOCAL
-#define debug(...) cerr<<#__VA_ARGS__<<":\n",debug_out(__VA_ARGS__)
+#define debug(...) cerr<<"#"<<#__VA_ARGS__<<":\n",debug_out(__VA_ARGS__)
 #else
 #define debug(...) 24
 #endif
