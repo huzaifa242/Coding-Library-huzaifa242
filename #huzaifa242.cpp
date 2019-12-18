@@ -50,6 +50,17 @@ typename enable_if<!is_same<typename remove_cv<T>::type, char>::value,
 ostream&>::type operator<<(ostream& out, T(&a)[N])
 {out<<'[';for(size_t i=0;i<N;++i)out<<a[i]<<" , ";out <<"]"<<endl;return out;}
 
+void debug_out(){cerr<<endl;} 
+template <typename Head, typename... Tail>
+void debug_out(Head H, Tail... T)
+{cerr<<(H)<<" ";debug_out(T...);}
+ 
+#ifdef LOCAL
+#define debug(...) cerr<<#__VA_ARGS__<<":\n",debug_out(__VA_ARGS__)
+#else
+#define debug(...) 24
+#endif
+
 signed main(){
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);cout.tie(NULL);
