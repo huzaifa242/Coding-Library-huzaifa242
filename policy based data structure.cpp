@@ -1,8 +1,8 @@
-#include <ext/pb_ds/assoc_container.hpp> // Common file 
-#include <ext/pb_ds/tree_policy.hpp> 
 #include<bits/stdc++.h>
-using namespace __gnu_pbds;
 using namespace std;
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/tree_policy.hpp> 
+using namespace __gnu_pbds;
 typedef tree<
 int,
 null_type,
