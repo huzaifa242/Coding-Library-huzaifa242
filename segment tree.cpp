@@ -18,39 +18,39 @@ class segment_tree{
 		merge=fnc;
 		tree.resize(4*MAX);
 	}
-	void build(int node,int a[],int l,int r){
+	void build(int node,int l,int r){
 		//build(1,a,0,n-1);
 		if(l>r)
 			return;
 		if(l==r){
 			//leaf node of segment tree
-			tree[node]=a[l];
+			tree[node]= //init ;
 			tree[node].lz=false;
 			return;
 		}
 		int m=(l+r)/2;
-		build(2*node,a,l,m);
-		build(2*node+1,a,m+1,r);
+		build(2*node,l,m);
+		build(2*node+1,m+1,r);
 		// merging of nodes
 		tree[node]=merge(tree[2*node],tree[2*node+1]);
 		return;
 	}
 	//Point Update
-	void update(int node,int a[],int l,int r,int id,int z){
+	void update(int node,int l,int r,int id,int z){
 		//update(1,a,0,n-1,ind,val)
 		if(l>r)
 			return;
 		if(l==r){
 			a[l]=z;
-			tree[node]=a[l];
+			tree[node]=//init;
 			//leaf node of segment tree a[l]=point update id=index z=new value l,r =tree range
 			return;
 		}
 		int m=(l+r)/2;
 		if(l<=id && id<=m)
-		update(2*node,a,l,m,id,z);
+		update(2*node,l,m,id,z);
 		else
-		update(2*node+1,a,m+1,r,id,z);
+		update(2*node+1,m+1,r,id,z);
 		// merging of nodes
 		tree[node]=merge(tree[2*node],tree[2*node+1]);
 		return;
@@ -71,7 +71,7 @@ class segment_tree{
 		return;	
 	}
 	//Range Update
-	void updateRange(int node,int a[],int l,int r,int x,int y,int z){
+	void updateRange(int node,int l,int r,int x,int y,int z){
 		//update(1,a,0,n-1,left,right,val)
 		calclazy(node,l,r,x,y);
 		if(l>r || x>r || y<l)
@@ -83,8 +83,8 @@ class segment_tree{
 			return;
 		}
 		int m=(l+r)/2;
-		updateRange(2*node,a,l,m,x,y,z);
-		updateRange(2*node +1, a,m+1,r,x,y,z);
+		updateRange(2*node,l,m,x,y,z);
+		updateRange(2*node +1,m+1,r,x,y,z);
 		// merging of nodes
 		tree[node]=merge(tree[2*node],tree[2*node+1]);
 		return;
