@@ -1,28 +1,26 @@
 //Usage pre_lca(root) for precomputation and lca(u,v) for LCA
 //LCA O(log)
 #define lgs 20
-vector<int> adjlst[MAX];
-int lvl[MAX],tin[MAX],tout[MAX],up[MAX][lgs],ptr;
-void lca_dfs(int x,int pr,int dep){
-	lvl[x]=dep;
-	tin[x]=++ptr;
-	up[x][0]=pr;
+vector<vector<int> > adjlst,up;
+vector<int> in,out,lvl;
+int ptr,n;
+void lca_dfs(int u,int p,int lv){
+	lvl[u]=lv;
+	in[u]=++ptr;
+	up[u][0]=p;
 	for (int i = 1; i <lgs; ++i)
-	up[x][i] = up[up[x][i-1]][i-1];
-	//cout<<x<<"$"<<par[x]<<" "<<lvl[x]<<"\n";
-	for(int i=0;i<adjlst[x].size();i++){
-		//cout<<adjlst[x][i]<<"#\n";
-		if(pr!=adjlst[x][i]){
-			lca_dfs(adjlst[x][i],x,dep+1);
-		}
+	up[u][i] = up[up[u][i-1]][i-1];
+	for(auto &v:adjlst[u]){
+		if(v==p)
+			continue;
+		lca_dfs(v,u,lv+1);
 	}
-	tout[x]=++ptr;
+	out[u]=ptr;
 	return;
 }
 bool is_ancetor(int u, int v){
-	return tin[u] <= tin[v] && tout[u] >= tout[v];
+	return in[u] <= in[v] && out[u] >= out[v];
 }
-
 int lca(int u, int v){
 	if (is_ancetor(u, v))
 		return u;
@@ -35,6 +33,10 @@ int lca(int u, int v){
 	return up[u][0];
 }
 void pre_lca(int root) {
-	ptr = 0;
+	ptr = -1;
+	lvl.resize(n+1);
+	in.resize(n+1);
+	out.resize(n+1);
+	up.assign(n+1,vector<int>(lgs));
 	lca_dfs(root, root,0);
 }

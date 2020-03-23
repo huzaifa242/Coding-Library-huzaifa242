@@ -1,12 +1,16 @@
 //Usage pre_lca(root) for precomputation and lca(u,v) for LCA
 //LCA O(1)
 #define lgs 20
-vector<int> adjlst[MAX],euler,depth;
-int foc[MAX],lvl[MAX],par[MAX],ptr;
+vector<vector<int> > adjlst;
+vector<int> euler,depth,foc,lvl,par;
+int ptr,n;
 class sparse_table{
 	private:
 	vector<vector<int> > sprs;
 	int n;
+	int merge(int u, int v){
+		return depth[u]>depth[v]?v:u;
+	}
 	public:
 	sparse_table(){}
 	sparse_table(int size){
@@ -23,58 +27,50 @@ class sparse_table{
 		sprs[i][0]=i;
 		for(j=1;j<lgs;j++){
 			for(i=0;i+(1<<j)<=n;i++){
-				int u=sprs[i][j-1],v=sprs[i+(1<<(j-1))][j-1];
-				sprs[i][j]=(depth[u]>depth[v]?v:u);
+				sprs[i][j]=merge(sprs[i][j-1],sprs[i+(1<<(j-1))][j-1]);
 			}
 		}
 	}
 	int query(int l, int r){
 		int i=log2(r-l+1),j;
-		int u=sprs[l][i];
-		int v=sprs[r-(1<<i)+1][i];
-		return (depth[u]>depth[v]?v:u);
+		return merge(sprs[l][i], sprs[r-(1<<i)+1][i]);
 	}
 } bld_sprs;
 
-void lca_dfs(int x,int pr,int dep){
-	lvl[x]=dep;
-	par[x]=pr;
-	if(foc[x]==-1)
-	foc[x]=ptr;
-	euler.push_back(x);
-	depth.push_back(dep);
+void lca_dfs(int u,int p,int lv){
+	lvl[u]=lv;
+	par[u]=p;
+	if(foc[u]==-1)
+		foc[u]=ptr;
+	euler.push_back(u);
+	depth.push_back(lv);
 	ptr++;
-	for(int i=0;i<adjlst[x].size();i++){
-		if(pr!=adjlst[x][i]){
-			lca_dfs(adjlst[x][i],x,dep+1);
-			euler.push_back(x);
-			depth.push_back(dep);
-			ptr++;
-		}
+	for(auto &v:adjlst[u]){
+		if(p==v)
+			continue;
+		lca_dfs(v,u,lv+1);
+		euler.push_back(u);
+		depth.push_back(lv);
+		ptr++;
 	}
 	return;
 }
 void pre_lca(int root){
-	int i,j;
 	ptr=0;
-	memset(foc,-1,sizeof(foc));
+	foc.assign(n+1,-1);
+	lvl.resize(n+1);
+	par.resize(n+1);
+	euler.clear();
+	depth.clear();
 	lca_dfs(root,root,0);
-	/*cout<<"foc:\n";
-	for(i=1;i<=n;i++)
-	cout<<foc[i]<<" ";
-	cout<<"\n";
-	cout<<"euler:\n";
-	cout<<euler<<endl;
-	cout<<"depth:\n";
-	cout<<depth<<endl;*/
 	bld_sprs.setsize(depth.size());
 	bld_sprs.build();
 }
 int lca(int u, int v){
 	if(u==v)
-	return u;
+		return u;
 	else if(foc[u]>foc[v])
-	swap(u,v);
+		swap(u,v);
 	return euler[bld_sprs.query(foc[u],foc[v])];
 }
 int dist(int u,int v){
