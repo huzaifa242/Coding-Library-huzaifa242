@@ -2,6 +2,7 @@
 using namespace std;
 #include <ext/pb_ds/detail/standard_policies.hpp>
 using namespace __gnu_pbds;
+
 typedef tree<
 int,
 null_type,
