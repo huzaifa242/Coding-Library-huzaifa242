@@ -1,21 +1,29 @@
 //Usage call kmp(text,pattern)
-//"#" is delimator. for vector match use suitable like -1
-//pos in kmp function returns 0-based vector of starting index of substing occurence
-vector<int> shift_table(string &s){
+//for geeric usage it made of int
+//delim is delimator. for vector match use suitable like -1 or 0
+//pos in kmp function returns 0-based vector of starting index of substring occurence
+vector<int> shift_table(vector<int> &s){
 	int i,j;
 	vector<int> sft(s.size());
 	for (i=1;i<s.size();i++){
 		j=sft[i-1];
-		while(j>0 && s[i]!=s[j])
+		while(j>0 && s[j]!=s[i]){
 			j=sft[j-1];
-		if (s[i]==s[j])
+		}
+		if (s[j]==s[i])
 			j++;
 		sft[i]=j;
 	}
 	return sft;
 }
-vector<int> kmp(string txt,string pat){
-	string cur=pat+"#"+txt;
+vector<int> kmp(vector<int> &txt,vector<int> &pat){
+	int delim=0;
+	vector<int> cur;
+	for(auto &u:pat)
+		cur.push_back(u);
+	cur.push_back(delim);
+	for(auto &u:txt)
+		cur.push_back(u);
 	vector<int> pos,lps=shift_table(cur);
 	int i;
 	for(i=pat.size()+1;i<=pat.size()+txt.size();i++)
