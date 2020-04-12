@@ -55,8 +55,26 @@ int  modinv(int a, int m=mod){
 	int p = (x%m + m) % m;
 	return p;
 }
+// nCr factorial needs Modulo
+vector<int> fct(MAX),ifct(MAX);
+void ncomr(){
+	int i;
+	fct[0]=1;
+	for(i=1;i<MAX;i++){
+		fct[i]=md(fct[i-1]*i);
+	}
+	ifct[MAX-1]=modinv(fct[MAX-1]);
+	for(i=MAX-1;i>0;i--){
+		ifct[i-1]=md(ifct[i]*i);
+	}
+}
+int ncr(int n, int r){
+	if(n<0 || r<0 || n<r)
+		return 0;
+	return md(fct[n]*md(ifct[r]*ifct[n-r]));
+}
 //Prime Factor Generator
-vector <int> prmfct[MAX];
+vector<vector<int> > prmfct(MAX);
 void prmfactgenerator(){
 	int i,j;
 	for(i=2;i<MAX;i++){
@@ -71,17 +89,16 @@ void prmfactgenerator(){
 //Linear Sieve to get all prime Numbers
 //prime contains all prime number [2,MAX)
 //isprime[x] has the smallest prime divisor of x 
-int isprime[MAX];
-vector<int> prime;
-void sieve(){
-	memset(isprime,0,sizeof(isprime));
+vector<int> prime,isprime;
+void sieve(int n){
+	isprime.resize(n,0);
 	int i,j;
-	for(i=2;i<MAX;i++){
+	for(i=2;i<n;i++){
 		if(isprime[i]==0){
 			prime.push_back(i);
 			isprime[i]=i;
 		}
-		for(j=0;j<(int)prime.size() && i*prime[j]<MAX;j++){
+		for(j=0;j<(int)prime.size() && i*prime[j]<n;j++){
 			isprime[prime[j]*i]=prime[j];
 			if(i%prime[j] ==0)
 				break;
