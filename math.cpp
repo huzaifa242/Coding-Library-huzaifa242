@@ -55,19 +55,22 @@ int  modinv(int a, int m=mod){
 	int p = (x%m + m) % m;
 	return p;
 }
-// nCr factorial needs Modulo
-vector<int> fct(MAX),ifct(MAX);
-void ncomr(){
+// factorial precalc needs modulo
+vector<int> fct,ifct;
+void factorials(int n){
 	int i;
+	fct.resize(n+1);
+	ifct.resize(n+1)
 	fct[0]=1;
-	for(i=1;i<MAX;i++){
+	for(i=1;i<=n;i++){
 		fct[i]=md(fct[i-1]*i);
 	}
-	ifct[MAX-1]=modinv(fct[MAX-1]);
-	for(i=MAX-1;i>0;i--){
+	ifct[n]=modinv(fct[n]);
+	for(i=n;i>0;i--){
 		ifct[i-1]=md(ifct[i]*i);
 	}
 }
+// nCr factorial needs factorials
 int ncr(int n, int r){
 	if(n<0 || r<0 || n<r)
 		return 0;
