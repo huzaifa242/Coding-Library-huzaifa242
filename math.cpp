@@ -60,7 +60,7 @@ vector<int> fct,ifct;
 void factorials(int n){
 	int i;
 	fct.resize(n+1);
-	ifct.resize(n+1)
+	ifct.resize(n+1);
 	fct[0]=1;
 	for(i=1;i<=n;i++){
 		fct[i]=md(fct[i-1]*i);
@@ -77,12 +77,14 @@ int ncr(int n, int r){
 	return md(fct[n]*md(ifct[r]*ifct[n-r]));
 }
 //Prime Factor Generator
-vector<vector<int> > prmfct(MAX);
-void prmfactgenerator(){
+vector<vector<int> > prmfct;
+void prmfactgenerator(int n){
+	prmfct.clear();
+	prmfct.resize(n+1);
 	int i,j;
-	for(i=2;i<MAX;i++){
+	for(i=2;i<=n;i++){
 		if(!prmfct[i].size()){
-			for(j=i;j<MAX;j+=i)
+			for(j=i;j<=n;j+=i)
 				prmfct[j].push_back(i);
 		}
 		// cout<<i<<": ";
