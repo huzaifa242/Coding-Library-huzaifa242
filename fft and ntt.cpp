@@ -1,5 +1,7 @@
-//usage fft f1; ntt n1(mod);
+//usage fft<type> f1; ntt n1(mod);
 //for ntt use modulo stuff from math
+//codeforces 754e for useful trick
+template <typename T>
 class fft{
 	using cd=complex<double>;
 	const double PI=acos(-1);
@@ -40,8 +42,21 @@ class fft{
 				x/=n;
 		}
 	}
+	void transform(vector<vector<cd> > &a,bool invert){
+		int n=a.size(),m=a[0].size();
+		for(int i=0;i<n;i++)
+			transform(a[i],invert);
+		for(int j=0;j<m;j++){
+			vector<cd> b(n,0);
+			for(int i=0;i<n;i++)
+				b[i]=a[i][j];			
+			transform(b,invert);
+			for(int i=0;i<n;i++)
+				a[i][j]=b[i];
+		}
+	}
 	public:
-	vector<int> multiply(vector<int> &a, vector<int> &b) {
+	vector<T> multiply(vector<T> &a, vector<T> &b) {
 		int n=round_pow2(a.size()+b.size());
 		bool eq=(a==b);
 		vector<cd> fa(a.begin(), a.end()), fb(b.begin(), b.end());
@@ -55,12 +70,48 @@ class fft{
 		for (int i=0;i<n;i++)
 			fa[i]*=fb[i];
 		transform(fa,true);
-		vector<int> result(n);
+		vector<T> result(n);
 		for (int i=0;i<n;i++)
 			result[i]=round(fa[i].real());
 		while(n>0 && result[n-1]==0)
 			n--;
 		result.resize(n);
+		return result;
+	}
+	vector<vector<T> > multiply(vector<vector<T> > &a, vector<vector<T> > &b){
+		int n=round_pow2(a.size()+b.size());
+		int m=round_pow2(a[0].size()+b[0].size());
+		bool eq=(a==b);
+		vector<vector<cd> > fa(a.begin(), a.end()), fb(b.begin(), b.end());
+		fa.resize(n);
+		fb.resize(n);
+		for(auto &f:fa)
+			f.resize(m);
+		for(auto &f:fb)
+			f.resize(m);
+		transform(fa,false);
+		if(eq)
+			fb=fa;
+		else
+			transform(fb,false);
+		for(int i=0;i<n;i++)
+			for(int j=0;j<m;j++)
+				fa[i][j]*=fb[i][j];
+		transform(fa,true);
+		vector<vector<T> > result(n,vector<T>(m));
+		int rn=0,rm=0;
+		for(int i=0;i<n;i++){
+			for(int j=0;j<m;j++){
+				result[i][j]=fa[i][j];
+				if(result[i][j].real()!=(0)){
+					rn=max(rn,i+1);
+					rm=max(rm,j+1);
+				}
+			}
+		}
+		result.resize(rn);
+		for(auto &f:result)
+			f.resize(rm);
 		return result;
 	}
 };

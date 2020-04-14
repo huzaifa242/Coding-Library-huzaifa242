@@ -3,7 +3,7 @@ const long double PI=acos(-1.0);
 //Multiply large Number num>=1e9 use Modulo
 //Power Function A raised to B use modulo
 //Modulo Inverse use modulo
-const int mod = 1000000007;
+const int mod = 998244353;
 int md(int x,int mdo=mod){
 	while(x<0)
 		x+=mdo;
