@@ -1,18 +1,22 @@
+template <typename T>
 class Matrix{
 	public:
 	int n,m;
-	vector<vector<int> > a;
+	vector<vector<T> > a;
 	
 	Matrix(int sz){
 		n=sz;m=sz;
-		a.assign(n,vector<int>(m,0));
+		a.assign(n,vector<T>(m,0));
 	}
 	Matrix(int _n,int _m){
 		n=_n;m=_m;
-		a.assign(n,vector<int>(m,0));
+		a.assign(n,vector<T>(m,0));
 	}
-	Matrix operator * (Matrix &b){
-		Matrix c(n,b.m);
+	vector<T>& operator [](int i){
+		return a[i];
+	}
+	Matrix<T> operator * (Matrix<T> &b){
+		Matrix<T> c(n,b.m);
 		if(m!=b.n)
 			return c;
 		int i,j,k;
@@ -22,22 +26,18 @@ class Matrix{
 		c.a[i][j]=md(c.a[i][j] + md(a[i][k]*b.a[k][j]));
 		return c;
 	}
-	friend ostream& operator << (ostream& out, const Matrix &c){
-		for(auto i:c.a){
-			for(auto j:i)
-				out<<j<<" "
-			out<<endl;
-		}
+	friend ostream& operator << (ostream& out, const Matrix<T> &c){
+		for(auto i:c.a)
+			out<<i;
 		return out<<endl;
 	}
 };
-
-Matrix matxpo(Matrix &a, int n){
+template <typename T>
+Matrix<T> matxpo(Matrix<T> &a, int n){
 	if(n==0){
-		Matrix b(a.n);
-		int i;
-		for(i=0;i<b.n;i++)
-			b.a[i][i]=1;
+		Matrix<T> b(a.n);
+		for(int i=0;i<b.n;i++)
+			b[i][i]=1;
 		return b;
 	}else if(n==1)
 		return a;
@@ -48,27 +48,28 @@ Matrix matxpo(Matrix &a, int n){
 	return x;
 }
 //determinant from cp-algos/determinant-gauss
-int determinant(Matrix a){
+template <typename T>
+T determinant(Matrix<T> a){
 	long double eps=1e-9;
-	int dt=1;
+	T dt=1;
 	int i,j,k;
 	for(i=0;i<a.n;i++){
 		k=i;
 		for(j=i+1;j<a.n;j++)
-			if(abs(a.a[j][i])>abs(a.a[k][i]))
+			if(abs(a[j][i])>abs(a[k][i]))
 				k=j;
-		if(a.a[k][i]==0)//use a.a[k][i]<eps
+		if(a[k][i]==0)//use a[k][i]<eps
 			return 0;
-		swap(a.a[i],a.a[k]);
+		swap(a[i],a[k]);
 		if(i!=k)
 			dt=md(-dt);
-		dt=md(dt*a.a[i][i]);
+		dt=md(dt*a[i][i]);
 		for(j=i+1;j<a.n;j++)
-			a.a[i][j]=md(a.a[i][j]*modinv(a.a[i][i]));
+			a[i][j]=md(a[i][j]*modinv(a[i][i]));
 		for(j=0;j<a.n;j++)
-		if(j!=i && abs(a.a[j][i]))//use abs(a.a[j][i])>eps
+		if(j!=i && abs(a[j][i]))//use abs(a[j][i])>eps
 		for(k=i+1;k<a.n;k++)
-		a.a[j][k]=md(a.a[j][k]- md(a.a[i][k] * a.a[j][i]));
+		a[j][k]=md(a[j][k]- md(a[i][k] * a[j][i]));
 	}
 	return dt;
 }
