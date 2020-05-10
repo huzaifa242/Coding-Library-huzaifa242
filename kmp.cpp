@@ -1,5 +1,5 @@
 //Usage call kmp(text,pattern)
-//for geeric usage it made of int
+//for generic usage it is made of int
 //delim is delimator. for vector match use suitable like -1 or 0
 //pos in kmp function returns 0-based vector of starting index of substring occurence
 vector<int> shift_table(vector<int> &s){
