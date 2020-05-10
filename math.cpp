@@ -5,9 +5,8 @@ const long double PI=acos(-1.0);
 //Modulo Inverse use modulo
 const int mod = 998244353;
 int md(int x,int mdo=mod){
-	while(x<0)
-		x+=mdo;
-	return x%mdo;
+	x%=mdo;
+	return x<0?x+mdo:x;
 }
 int multi(int a, int b, int mdo=mod){
 	int pro=0;
@@ -38,6 +37,7 @@ int pwr(int a,int n,int mdo=mod){
 	}
 	return x;
 }
+// ge can solve ax + by = gcd(a,b)
 int ge(int a, int b, int *x, int *y){
 	if (a == 0){
 		*x = 0, *y = 1;
@@ -52,6 +52,8 @@ int ge(int a, int b, int *x, int *y){
 int  modinv(int a, int m=mod){
 	int x, y;
 	int g = ge(a, m, &x, &y);
+	// if g!=1 modinv doesn't exist;
+	assert(g==1);
 	int p = (x%m + m) % m;
 	return p;
 }
