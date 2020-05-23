@@ -1,12 +1,12 @@
 //Usage pre_lcs(a,b);
 //lcs has the required string 
-int lcs_dp[MAX][MAX];
-string lcs;
-void pre_lcs(string &a, string &b){
+vector<vector<int> > lcs_dp;
+vector<int> lcs;
+void pre_lcs(vector<int> &a, vector<int> &b){
 	int i,j,l;
-	lcs="";
-	for(i=0;i<=a.length();i++){
-		for(j=0;j<=b.length();j++){
+	lcs_dp.assign(MAX,vector<int>(MAX,0));
+	for(i=0;i<=a.size();i++){
+		for(j=0;j<=b.size();j++){
 			if(i==0||j==0)
 				lcs_dp[i][j]=0;
 			else if(a[i-1]==b[j-1])
@@ -15,10 +15,9 @@ void pre_lcs(string &a, string &b){
 				lcs_dp[i][j]=max(lcs_dp[i-1][j],lcs_dp[i][j-1]);
 		}
 	}
-	l=lcs_dp[a.length()][b.length()];
-	for(i=0;i<l;i++)
-		lcs+=" ";
-	i=a.length();j=b.length();
+	l=lcs_dp[a.size()][b.size()];
+	lcs.resize(l,-1);
+	i=a.size();j=b.size();
 	while(i>0 && j>0){
 		if(a[i-1]==b[j-1]){
 			lcs[l-1]=a[i-1];

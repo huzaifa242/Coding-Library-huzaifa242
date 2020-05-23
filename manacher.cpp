@@ -8,8 +8,8 @@
 // to get longest length palindrome at i do: 2*palins[0][i];
 // lrg[i] - The length of the longest palindrome starting at i.
 
-vector<int> manacher(string &s){
-	int n=s.length(),i,l,r,z;
+vector<int> manacher(vector<int> &s){
+	int n=s.size(),i,l,r,z;
 	vector<vector<int> > palins(2,vector<int>(n));
 	vector<int> lrg(n,1);
 	for(z=0;z<2;z++){

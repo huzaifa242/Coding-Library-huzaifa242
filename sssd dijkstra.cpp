@@ -1,18 +1,16 @@
 //Usage dijkstra(source). get_path(source, any_node), ssst holds new tree
 // adjlst stores <weight,node>
 // for multi-source djikstra put all the sources in pq with dst=0
-vector<pair<int,int> > adjlst[MAX],ssst[MAX];
-int par[MAX],vis[MAX],n,m;
-int dst[MAX];
-vector<int> path;
+vector<vector<pair<int,int> > > adjlst,ssst;
+vector<int> par,vis,path;
+vector<int> dst;
+int n,m;
 void dijkstra(int u){
 	int i;
 	par.assign(n+1,0);
 	vis.assign(n+1,0);
-	for(i=0;i<=n;i++){
-		dst[i]=LLONG_MAX;
-		ssst[i].clear();
-	}
+	dst.assign(n+1,LLONG_MAX);
+	ssst.assign(n+1,vector<pair<int,int> >(0));
 	priority_queue<pair<int,int>, vector<pair<int,int> >, greater<pair<int,int> > > pq;
 	pq.push({0LL,u});
 	par[u]=u;

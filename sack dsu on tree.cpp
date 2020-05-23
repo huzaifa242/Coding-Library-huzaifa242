@@ -4,9 +4,16 @@
 //sbsz[] has the subtree size
 //cnt[] has the count of occurence of col[i] in subtree of u.
 //O(nlogn)
-
-vector<int> adjlst[MAX];
-int n,cnt[MAX],big[MAX],sbsz[MAX]={0},col[MAX];
+vector<vector<int> > adjlst;
+vector<int> cnt,big,sbsz,col;
+int n;
+//n nodes and m types of colors
+void initSack(int n, int m){
+	cnt.assign(n+1,0);
+	big.assign(n+1,0);
+	sbsz.assign(n+1,0);
+	col.assign(m+1,0);
+}
 
 void getsize(int u,int p){
 	sbsz[u]=1;

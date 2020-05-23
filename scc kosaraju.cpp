@@ -2,7 +2,8 @@
 //compo[i] in Kosaraju = compo[lb-i+1] in tarjan 
 //lbl[i] has label of each node
 //compo[i] has all the node that are strongly connected
-vector<int> adjlst[MAX],iadj[MAX],compo[MAX],vis,lbl;
+vector<vector<int> > adjlst,iadj,compo;
+vector<int> vis,lbl;
 int n,m;
 stack<int> scc;
 void st_dfs(int u, int p){
@@ -31,14 +32,12 @@ void scc_dfs(int u,int p, int lb){
 }
 int kosaraju(){
 	int ptr=0;
+	iadj.assign(n+1,vector<int>(0));
+	compo.assign(n+1,vector<int>(0));
 	vis.assign(n+1,0);
 	lbl.assign(n+1,0);
 	while(!scc.empty())
 	scc.pop();
-	for(int i=0;i<=n;i++){
-		iadj[i].clear();
-		compo[i].clear();
-	}
 	for(int i=1;i<=n;i++){
 		if(!vis[i])
 		st_dfs(i,0);

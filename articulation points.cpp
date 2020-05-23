@@ -1,7 +1,8 @@
 //usage articulation_points(). 
 //arti[i] denotes wheather the node is AP 
 //artpt is list of all nodes that are AP
-vector<int> adjlst[MAX],artpt,vis,tin,low;
+vector<vector<int> > adjlst;
+vector<int> artpt,vis,tin,low;
 vector<bool> arti;
 int n,ptr;
 void arti_dfs(int u, int p){

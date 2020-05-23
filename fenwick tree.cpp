@@ -1,11 +1,9 @@
 //Fenwick Tree(Binary Indexed Tree)
-//Usage fenwick f1, f2(100);
-struct data{
-	//node structure of Fenwick Tree
-};
+//Usage fenwick<type> f1, f2(100);
+template <typename T>
 class fenwick{
 	private:
-	vector<data> bit;
+	vector<T> bit;
 	int n;
 	public:
 	fenwick(){
@@ -17,15 +15,15 @@ class fenwick{
 		bit.assign(n,{0});
 	}
 	//Point Update
-	void update(int id, int z){
+	void update(int id, T z){
 		while(id<=n){
 			bit[id]= bit[id] + z;
 			id+=(id & (-id));
 		}
 	}
-	data query(int id){
+	T query(int id){
 		//Initialize answer variable
-		data ans;
+		T ans={0};
 		while(id>0){
 			ans= ans + bit[id];
 			id-=(id & (-id));

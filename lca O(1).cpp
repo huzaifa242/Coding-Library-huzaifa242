@@ -1,42 +1,14 @@
 //Usage pre_lca(root) for precomputation and lca(u,v) for LCA
 //LCA O(1)
-#define lgs 20
+const int lgs=20;
 vector<vector<int> > adjlst;
 vector<int> euler,depth,foc,lvl,par;
 int ptr,n;
-class sparse_table{
-	private:
-	vector<vector<int> > sprs;
-	int n;
-	int merge(int u, int v){
-		return depth[u]>depth[v]?v:u;
-	}
-	public:
-	sparse_table(){}
-	sparse_table(int size){
-		n=size;
-		sprs.assign(n,vector<int>(lgs,-1));
-	}
-	void setsize(int size){
-		n=size;
-		sprs.assign(n,vector<int>(lgs,-1));
-	}
-	void build(){
-		int i,j;
-		for(i=0;i<n;i++)
-		sprs[i][0]=i;
-		for(j=1;j<lgs;j++){
-			for(i=0;i+(1<<j)<=n;i++){
-				sprs[i][j]=merge(sprs[i][j-1],sprs[i+(1<<(j-1))][j-1]);
-			}
-		}
-	}
-	int query(int l, int r){
-		int i=log2(r-l+1),j;
-		return merge(sprs[l][i], sprs[r-(1<<i)+1][i]);
-	}
-} bld_sprs;
-
+//sparse table code with O(1) query
+auto mrg=[&](int u, int v){
+	return depth[u]>depth[v]?v:u;
+}
+sparse_table<int> bld_sprs(mrg);
 void lca_dfs(int u,int p,int lv){
 	lvl[u]=lv;
 	par[u]=p;
@@ -63,7 +35,7 @@ void pre_lca(int root){
 	euler.clear();
 	depth.clear();
 	lca_dfs(root,root,0);
-	bld_sprs.setsize(depth.size());
+	bld_sprs.setsize(depth.size(),-1);
 	bld_sprs.build();
 }
 int lca(int u, int v){

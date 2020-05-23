@@ -1,8 +1,9 @@
 //Usage bellman_ford(). if return true, sssd success else negative cycle exist stored in negcyc
-vector<pair<int,int> > adjlst[MAX],ssst[MAX];
-vector<int> negcyc;
-int dst[MAX],cnt[MAX],par[MAX],n,m;
-bool inqueue[MAX];
+// name is bellman ford but it is spfa implementation
+vector<vector<pair<int,int> > > adjlst,ssst;
+vector<int> negcyc,dst,par,cnt;
+vector<bool> inqueue;
+int n,m;
 void find_neg(int s){
 	int i;
 	negcyc.clear();
@@ -17,16 +18,14 @@ void find_neg(int s){
 	return 0;
 }
 
-bool bellman_ford(int s)
-{
+bool bellman_ford(int s){
 	int i,j,x;
-	for(i=0;i<=n;i++){
-		par[i]=i;
-		dst[i]=LLONG_MAX;
-		cnt[i]=0;
-		inqueue[i]=false;
-		ssst[i].clear();
-	}
+	par.resize(n+1);
+	iota(par.begin(),par.end(),0);
+	dst.assign(n+1,LLONG_MAX);
+	cnt.assign(n+1,0);
+	inqueue.assign(n+1,false);
+	ssst.assign(n+1,vector<int>(0));
 	queue<int> q;
 	dst[s]=0;
 	q.push(s);

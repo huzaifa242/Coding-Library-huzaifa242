@@ -1,7 +1,6 @@
 //Usage binlft_dfs(root,0) then getparent(node, distance_from_node)
-#define lgs 20
-vector<int> adjlst[MAX];
-int up[MAX][lgs];
+const int lgs=20;
+vector<vector<int> > adjlst,up(MAX,vector<int>(lgs));
 void binlft_dfs(int u, int p){
 	up[u][0]=p;
 	for(int i=1;i<lgs;i++)

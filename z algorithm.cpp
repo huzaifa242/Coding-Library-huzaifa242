@@ -1,6 +1,6 @@
 //Usage call z_algo(pattern+"#"+text)
 //"#" is delimator. for vector match use suitable like -1
-vector<int> z_algo(string s){
+vector<int> z_algo(vector<int> &s){
 	int i,l,r;
 	vector<int> zeta(s.size());
 	for (i=1,l=0,r=0; i<s.size();i++){

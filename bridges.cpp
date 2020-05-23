@@ -1,6 +1,7 @@
 //usage bridges(). 
 //bridgpt is list of all edges that are bridges
-vector<int> adjlst[MAX],vis,tin,low;
+vector<vector<int> > adjlst;
+vector<int> vis,tin,low;
 vector<pair<int,int> > bridgpt;
 int n,m,ptr;
 void brdgi_dfs(int u, int p){

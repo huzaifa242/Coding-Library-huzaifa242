@@ -1,7 +1,8 @@
 //usage topological_sort()
 //topo vector has sorted ordef
 int n,m;
-vector<int> topo,adjlst[MAX],idgr;
+vector<vector<int> > adjlst;
+vector<int> topo,idgr;
 bool topological_sort(){
 	int i;
 	idgr.assign(n+1,0);

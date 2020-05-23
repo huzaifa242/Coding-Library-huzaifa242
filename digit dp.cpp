@@ -2,7 +2,8 @@
 // ls represents the less flag ls=1 means less
 // sm will be terminating condition on count of particular digit
 //Usage write 3rd parameter of dp. then solve(z), will give count from 0 to z
-int dp[MAX][2][];
+vector<vector<vector<int> > > dp(MAX,vector<vector<int> >(2,vector<int>(/*3rd dimension*/)));
+// int dp[MAX][2][];
 vector<int> digi;
 
 int call(int id, int ls, int sm){

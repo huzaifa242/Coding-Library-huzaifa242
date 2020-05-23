@@ -1,6 +1,6 @@
 //Usage pre_lca(root) for precomputation and lca(u,v) for LCA
 //LCA O(log)
-#define lgs 20
+const int lgs=20;
 vector<vector<int> > adjlst,up;
 vector<int> in,out,lvl;
 int ptr,n;
