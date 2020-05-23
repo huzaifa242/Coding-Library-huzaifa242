@@ -2,6 +2,8 @@
 
 #### If any of the step doesn't take effect, try closing and reopening Sublime Text 3.
 
+#### The below steps are with assumption that you already have competitve companion plugin in your browser
+
 #### Install Sublime Text 3
 
 #### Go to Browse Package and go to Parent directory of Sublime-Text-3 give it 777 Permission
@@ -42,6 +44,9 @@ For the whole setup to work the directory structure must be as follows:
 |	|	|---testadder.py
 |	|	|---testcreater.py	
 ````
+
+Below is my personal setting for environment variable. Modify it accordinh to your system based on above Directory Structure.
+
 ```
 	export CODING_PORT=2421;
 	export CODING_HOME='/media/procyon/New Volume2/Coding';
