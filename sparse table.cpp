@@ -8,11 +8,6 @@ class sparse_table{
 	vector<vector<T> > sprs;
 	int n;
 	function<T(T,T)> merge;
-	T merge(T p, T q){
-		T r;
-		//logic here
-		return r;
-	}
 	public:
 	sparse_table(auto fnc){
 		merge=func;
