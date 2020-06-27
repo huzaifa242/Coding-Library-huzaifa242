@@ -26,7 +26,7 @@ using namespace std;
 
 int seed;
 mt19937 rng(seed=chrono::steady_clock::now().time_since_epoch().count());
-inline int rnd(int l=0,int r=INT_MAX)
+inline int rnd(int l=0,int r=numeric_limits<int>::max())
 {return uniform_int_distribution<int>(l,r)(rng);}
 
 template <typename T,typename G>
