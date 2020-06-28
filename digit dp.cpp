@@ -1,40 +1,42 @@
-//dp[id][ls][sm] id represents the number of digits
-// ls represents the less flag ls=1 means less
-// sm will be terminating condition on count of particular digit
-//Usage write 3rd parameter of dp. then solve(z), will give count from 0 to z
-vector<vector<vector<int> > > dp(MAX,vector<vector<int> >(2,vector<int>(/*3rd dimension*/)));
-// int dp[MAX][2][];
-vector<int> digi;
+/**
+ * dp[id][ls][sm] id represents the number of digits
+ * ls represents the less flag ls=1 means less
+ *  sm will be terminating condition on count of particular digit
+ * Usage write 3rd parameter of dp. then solve(z), will give count from 0 to z
+ * intstantiate like int dp[MAX][2][];
+ */
+vector <vector <vector <int> > > dp;
+vector <int> digi;
 
-int call(int id, int ls, int sm){
+int call(int id, int ls, int sm) {
 	// failure of count condition
-	if(sm> ) 
+	if (sm> ) 
 		return 0;
 	//reached end of all digits
-	if(id==digi.size())
+	if (id == digi.size())
 		return 1;
 	// answer cached
-	if(dp[id][ls][sm]!=-1)
+	if (dp[id][ls][sm] != -1)
 		return dp[id][ls][sm];
-	int dans=0;
-	if(!ls){
-		for(int i=0;i<=digi[id];i++)
-			dans+=call(id+1,ls|(i<digi[id]),sm+(i>0));
-	}else{
-		for(int i=0;i<=9;i++)
-			dans+=call(id+1,ls,sm+(i>0));	
+	int dans = 0;
+	if (!ls) {
+		for(int i = 0; i <= digi[id]; ++i)
+			dans += call(id + 1, ls | (i < digi[id]), sm + (i > 0));
+	}else {
+		for(int i = 0; i <= 9; ++i)
+			dans += call(id + 1, ls, sm + (i > 0));	
 	}
-	return dp[id][ls][sm]=dans;
+	return dp[id][ls][sm] = dans;
 }
 
-int solve(int z){
+int solve(int z) {
 	digi.clear();
-	memset(dp,-1,sizeof(dp));	
-	int sm=0;
-	while(z){
-		digi.push_back(z%10LL);
-		z/=10LL;
+	int sm = 0;
+	while (z) {
+		digi.push_back(z % 10);
+		z/= 10;
 	}
-	reverse(digi.begin(),digi.end());
-	return call(0,0,0);
+	dp.assign(digi.size(), vector <vector <int> >(2, vector <int>(/*3rd dimension*/, -1)));
+	reverse(digi.begin(), digi.end());
+	return call(0, 0, 0);
 }
