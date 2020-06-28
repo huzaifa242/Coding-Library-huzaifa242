@@ -26,27 +26,27 @@ using namespace std;
 
 int seed;
 mt19937 rng(seed=chrono::steady_clock::now().time_since_epoch().count());
-inline int rnd(int l = 0, int r = numeric_limits<int>::max())
+inline int rnd(int l = 0, int r = numeric_limits <int>::max())
 {return uniform_int_distribution<int> (l, r)(rng);}
 
 template <typename T, typename G>
-ostream& operator << (ostream& out, const pair<T, G> &a) 
+ostream& operator << (ostream& out, const pair <T, G> &a) 
 {return out << "( " << a.x << ", " << a.y << ")";}
 
 template <typename T>
-ostream& operator << (ostream& out, const vector<T> &a) 
+ostream& operator << (ostream& out, const vector <T> &a) 
 {out << "[ "; for(const auto &i: a) out << i << ", "; return out << "]" << endl;}
 
 template <typename T>
-ostream& operator << (ostream& out, const set<T> &a) 
+ostream& operator << (ostream& out, const set <T> &a) 
 {out << "{ "; for(const auto &i: a) out << i << ", "; return out << "}" << endl;}
 
 template <typename T, typename G>
-ostream& operator << (ostream& out, const map<T, G> &a) 
+ostream& operator << (ostream& out, const map <T, G> &a) 
 {out << "< "; for(const auto &i: a) out << i << ", "; return out << ">" << endl;}
 
-template<typename T, size_t N>
-typename enable_if<!is_same<typename remove_cv<T>::type, char>::value,
+template <typename T, size_t N>
+typename enable_if<!is_same <typename remove_cv <T>::type, char>::value,
 ostream&>::type operator << (ostream& out, T (&a)[N])
 {out << "[ "; for(const auto &i: a) out << i << ", "; return out << "]" << endl;}
 
