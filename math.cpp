@@ -190,7 +190,6 @@ int count_div(int n) {
  */
 int lagrange_polynomial(vector <int> &value, int k) {
 	int n = value.size();
-	debug(n, k);
 	if (k < n)
 		return value[k];
 	factorials(n);
