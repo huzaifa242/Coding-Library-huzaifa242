@@ -177,3 +177,34 @@ int count_div(int n) {
 		sm *= 4;
 	return sm;
 }
+/**
+ * Lagrange Interpolation requires factorials()
+ * works in O(n) for f(x) = y such that x = 1, 2, 3, ....
+ * Also try to keep size of given values more than 2 or 3
+ * handle x = 0 case seprately even though values.size() > 0 
+ * if x != 1, 2, 3, ... use below formulae
+ * y=f(x) y0,y1,..yn and x0,x1,..xn
+ * f(x) = (x-x2)(x-x3)..(x-xn)*y1/(x1-x2)(x1-x3)..(x1-xn) +
+ * (x-x1)(x-x3)..(x-xn)*y2/(x2-x1)(x2-x3)..(x2-xn)+ ....
+ * upto n terms.
+ */
+int lagrange_polynomial(vector <int> &value, int k) {
+	int n = value.size();
+	debug(n, k);
+	if (k < n)
+		return value[k];
+	factorials(n);
+	int numerator = 1;
+	for (int i = 0; i < n; ++i) 
+		numerator = md(numerator * md(k - i));
+	int ans = 0;
+	for (int i = 0; i < n; ++i) {
+		int denominator = md(modinv(md(k - i)) * md(ifct[i] * ifct[n - 1 - i]));
+		int coefficient = md(numerator * denominator);
+		if ((n - i)&1)
+			ans = md(ans + md(coefficient * value[i]));
+		else
+			ans = md(ans - md(coefficient * value[i]));
+	}
+	return ans;
+}
