@@ -4,7 +4,7 @@
 template <typename T>
 class fft {
 	using cd = complex<double>;
-	const double PI = acos(-1);
+	const double PI = acos(-1.0);
 	int round_pow2(int n) {
 		if (n & (n - 1)) {
 			int pw = 1;
@@ -24,7 +24,7 @@ class fft {
 			if (i < j)
 				swap(a[i], a[j]);
 		}
-		for (int len = 2; len <= n; len<<= 1) {
+		for (int len = 2; len <= n; len <<= 1) {
 			double ang = 2 * PI / len * (invert? -1: 1);
 			cd wlen(cos(ang), sin(ang));
 			for (int i = 0; i < n; i+= len) {
@@ -216,14 +216,14 @@ class ntt {
 	}
 };
 
-template <typename T>
-vector <int> multiply_all(vector <vector <int> > &polys,T &trans){
+template <typename T, typename G>
+vector <G> multiply_all(vector <vector <G> > &polys,T &trans){
 	if (polys.empty())
 		return {1};
-	auto cmp = [&](vector <int> a,vector <int> b){
+	auto cmp = [&](vector <G> a,vector <G> b){
 		return a.size() > b.size();
 	};
-	priority_queue <vector <int>, vector <vector <int> >, decltype(cmp)> pq(cmp);
+	priority_queue <vector <G>, vector <vector <G> >, decltype(cmp)> pq(cmp);
 	for (auto &p : polys)
 		pq.push(p);
 	while (pq.size() > 1) {
@@ -233,13 +233,13 @@ vector <int> multiply_all(vector <vector <int> > &polys,T &trans){
 	}
 	return pq.top();
 }
-template <typename T>
-vector <int> poly_pow(vector<int> &poly, int n, T &trans){
+template <typename T, typename G>
+vector <G> poly_pow(vector<G> &poly, int n, T &trans){
 	if(n == 0)
 		return {1};
 	if(n == 1)
 		return poly;
-	vector <int> x = poly_pow(poly, n/2, trans);
+	vector <G> x = poly_pow(poly, n/2, trans);
 	x = trans.multiply(x, x);
 	if (n & 1)
 		x = trans.multiply(x, poly);
