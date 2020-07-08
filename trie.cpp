@@ -1,69 +1,102 @@
-//present() checks if current bit is set in any element
-//in thr range of indices l to r
-//to store the indices, ps is used no big deal
-//for simplicity use vector to push positions if required
-//modify present accordingly
-//insert and remove are multi-purpose so rock everywhere
-//find is for string implementation so be wise
-struct node{
-	node* a[2];
-	bitset<MAX> ps;
-	//rest of the data
-};
-class Trie{
+/**
+ * while using address all the comments in the code
+ * default implementation of key_to_string is for int->string
+ * Query method is for actual logic
+ * Usage trie <T> name(starting_char) (default value type is int)
+ * Usage trie<T, G> name(starting_char) value type is G
+ */
+template <typename T, typename G = int>
+class trie {
 	private:
-	const int lgs=31;
-	node* head;
-	bool present(node *cur,int l,int r,int b){
-		if(!cur->a[b])
-			return false;
-		return (((cur->a[b]->ps)<<l)>>(MAX-r+l-1)).count() > 0;
+	// Look at this and change
+	const static int alpha = 2;
+	char start;
+	bool conversion_required;
+	struct node_t {
+		G count = {0};
+		bool is_leaf = false;
+		array<node_t*, alpha> child;
+	};
+	node_t* head;
+	// override this method for proper string conversion
+	string key_to_string(T &key) {
+		string new_key = "";
+		int bits = 31;
+		for (int i = bits; i >= 0; --i) 
+			new_key += char(((key >> i) & 1) + '0');
+		return new_key;
+	}
+	string get_key(T &key) {
+		if (conversion_required) 
+			return key_to_string(key);
+		return key;
+	}
+	node_t* get_node() {
+		return new node_t();
 	}
 	public:
-	Trie(){
-		head= new node();
+	trie(char _start) {
+		head = get_node();
+		start = _start;
+		conversion_required = typeid(T).name() != typeid(string).name();
 	}
-	void insert(int x,int p){
-		trie *cur=head;
-		int i;
-		for(i=lgs-1;i>=0;i--){
-			int bt=(x>>i)&1;
-			if(!cur->a[bt])
-				cur->a[bt]=new trie();
-			cur=cur->a[bt];
-			cur->ps[p]=1;
-			//Do operation
+	// change based on value type
+	void insert(T &key, G val = G(1)) {
+		node_t* cur = head;
+		string k = get_key(key);
+		for (int i = 0; i < k.length(); ++i) {
+			int id = k[i] - start;
+			if (!cur->child[id]) 
+				cur->child[id] = get_node();
+			cur = cur->child[id];
+			cur->count += val;
+			//Do rest operation here
+		}
+		cur->is_leaf = true;
+	}
+	void remove(T &key) {
+		node_t* cur = head;
+		string k = get_key(key);
+		G val = find(key);
+		for (int i = 0; i < k.length(); ++i) {
+			int id = k[i] - start;
+			if (!cur->child[id]) { 
+				// No child Handle
+				assert(false);
+			}
+			cur = cur->child[id];
+			cur->count -= val; //handle this carefully
+			//Do rest operation here
 		}
 	}
-	void remove(int x,int p){
-		trie *cur=head;
-		int i;
-		for(i=lgs-1;i>=0;i--){
-			int bt=(x>>i)&1;
-			cur=cur->a[bt];
-			cur->ps[p]=0;
-			//Do operation
+	G find(T &key) {
+		node_t* cur = head;
+		string k = get_key(key);
+		for (int i = 0; i < k.length(); ++i) {
+			int id = k[i] - start;
+			if (!cur->child[id]) { 
+				// No child Handle
+				assert(false);
+			}
+			cur = cur->child[id];
+			//Do rest operation here
 		}
+		return cur->count;
 	}
-	bool find(string &x){
-		trie *cur=head;
-		int i;
-		for(i=0;i<x.length();i++){
-			int bt=x[i]-'a';
-			if(!cur->a[bt])
-			return false;
-			cur=cur->a[bt];
+	// write logic in this method
+	G query(T &key) {
+		node_t* cur = head;
+		string k = get_key(key);
+		G val = {0};
+		for (int i = 0; i < k.length(); ++i) {
+			int id = k[i] - start;
+			if (!cur->child[id]) { 
+				// No child Handle
+				assert(false);
+			}
+			cur = cur->child[id];
+			//Do rest operation here
 		}
-		return true;
-	}
-	int maxor(int l,int r,int x){
-		trie *cur=head;
-		int i,ans=0;
-		for(i=lgs-1;i>=0;i--){
-			int bt=present(cur,l,r,!(x>>i)&1)?(!((x>>i)&1)):((x>>i)&1);
-			ans|=(bt<<i);
-			cur=cur->a[bt];
-		}
-		return ans;
+		return val;
 	}
 };
