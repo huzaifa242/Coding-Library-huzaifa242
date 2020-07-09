@@ -40,7 +40,7 @@ Matrix <T> matxpo(Matrix <T> &a, int n){
 		return b;
 	} else if (n == 1)
 		return a;
-	Matrix x = matxpo(a, n / 2);
+	Matrix <T> x = matxpo(a, n / 2);
 	x = (x * x);
 	if (n & 1)
 		x = (x * a);
