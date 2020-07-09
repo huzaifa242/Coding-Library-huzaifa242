@@ -5,9 +5,9 @@
  * number of elements in longest decreasing subsequence = total number of different non-decreasing subsequence 
  * above two facts are used vice-versa
  */
-int inf = 2e9, n;
-vector <int> a, ls, ind, par, seq;
-int lis() {
+int lis(vector <int> &a) {
+	int inf = 2e9, n = a.size() - 1;
+	vector <int> a, ls, ind, par, seq;
 	//change initialization of ls
 	//for non/- incresing/decreasing seq
 	ls.assign(n + 1, inf);
