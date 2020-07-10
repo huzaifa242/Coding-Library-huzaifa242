@@ -5,16 +5,17 @@ using namespace std;
 #include "ext/pb_ds/tree_policy.hpp" 
 using namespace __gnu_pbds;
 
-typedef tree <
-int,
+template <typename T>
+using statistic_tree = 
+tree <
+T ,
 null_type,
-less <int>, //change for custom Comparator
+less <T>, //change for custom Comparator
 rb_tree_tag,
-tree_order_statistics_node_update>
-statistic_tree;
+tree_order_statistics_node_update>;
 
 signed main(){
-	statistic_tree st;
+	statistic_tree <int> st;
 	st.insert(5); 
 	st.insert(2); 
 	st.insert(6); 
