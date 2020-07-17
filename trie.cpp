@@ -29,7 +29,7 @@ class trie {
 	string get_key(T &key) {
 		if (conversion_required) 
 			return key_to_string(key);
-		return key;
+		return to_string(key);
 	}
 	node_t* get_node() {
 		return new node_t();
